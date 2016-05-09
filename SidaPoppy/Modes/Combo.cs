@@ -50,7 +50,7 @@ namespace Sida.Modes
                 qwer.Cast(poutput2.CastPosition);
             else
                 if(Standard.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
-                qwer.Cast(P.GetPrediction(target,150).CastPosition);
+                qwer.Cast(S.Q.GetPrediction(target).CastPosition);
         }
     }
 }
