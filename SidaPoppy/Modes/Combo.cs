@@ -48,6 +48,7 @@ namespace Sida.Modes
             var Standard = qwer.GetPrediction(target);
             if (poutput2.Hitchance >= HitChance.Medium)
                 qwer.Cast(poutput2.CastPosition);
+                qwer.Cast(P.GetPrediction(target,150).CastPosition);
             else
                 if(Standard.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                 qwer.Cast(P.GetPrediction(target,150).CastPosition);
