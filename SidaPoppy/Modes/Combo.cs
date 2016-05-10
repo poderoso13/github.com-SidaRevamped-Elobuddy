@@ -46,11 +46,10 @@ namespace Sida.Modes
             };
             var poutput2 = P.GetPrediction(predInput2);
             var Standard = qwer.GetPrediction(target);
-            if (poutput2.Hitchance >= HitChance.Medium)
-                qwer.Cast(poutput2.CastPosition);
-            else
                 if(Standard.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
+                {
                 qwer.Cast(S.Q.GetPrediction(target).CastPosition);
+                }
         }
     }
 }
