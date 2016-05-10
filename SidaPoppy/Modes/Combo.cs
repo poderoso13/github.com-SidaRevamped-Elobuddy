@@ -23,13 +23,13 @@ namespace Sida.Modes
                 }
                 if (S.Q.IsReady() && Settings.UseQCombo)
                 {
-                    CastSpell(S.Q, target);
+                    S.Q.Cast(target);
                 }
             }
             if (S.Q.IsReady() && Settings.UseQCombo && !S.R.IsCharging)
             {
                 target = TargetSelector.GetTarget(S.Q.Range, DamageType.Physical);
-                CastSpell(S.Q, target);
+                S.Q.Cast(target);
             }
         }
         private static void CastSpell(Spell.Skillshot qwer, Obj_AI_Base target)
