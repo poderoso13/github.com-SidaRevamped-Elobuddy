@@ -17,7 +17,7 @@ namespace Sida.Modes
             if (S.E.IsReady()  && Settings.UseECombo && !S.R.IsCharging)
             {
                 var finalPosition = target.BoundingRadius + target.Position.Extend(ObjectManager.Player.Position, -360);
-                if (finalPosition.IsWall() || ((Player.Instance.GetSpellDamage(target,SpellSlot.E)) + (Player.Instance.GetSpellDamage(target, SpellSlot.Q)/2)) >= target.Health)
+                if (finalPosition.IsWall())
                 {
                     S.E.Cast(target);
                 }
