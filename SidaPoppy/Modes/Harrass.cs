@@ -15,7 +15,7 @@ namespace Sida.Modes
             if (target == null || !target.IsValidTarget(S.Q.Range)) { return; }
             if (Settings.UseQHarass && S.Q.IsReady())
             {
-                CastSpell(S.Q, target);
+                S.Q.Cast(target);
             }
         }
         private static void CastSpell(Spell.Skillshot qwer, Obj_AI_Base target)
