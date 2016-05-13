@@ -14,8 +14,6 @@ namespace JokerFioraBuddy.Evade
             //Add spells to the database 
 
             #region Aatrox
-
-            #region Aatrox
             Spells.Add(
              new SpellData
              {
