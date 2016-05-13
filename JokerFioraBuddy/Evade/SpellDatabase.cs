@@ -4248,11 +4248,11 @@ namespace JokerFioraBuddy.Evade
             return null;
         }
 
-        public static SpellData GetBySpeed(string ChampionName, int speed, int id = -1)
+        public static SpellData GetBySpeed(string championName, int speed, int id = -1)
         {
             foreach (var spellData in Spells)
             {
-                if (spellData.ChampionName == ChampionName && spellData.MissileSpeed == speed &&
+                if (spellData.ChampionName == championName && spellData.MissileSpeed == speed &&
                     (spellData.Id == -1 || id == spellData.Id))
                 {
                     return spellData;

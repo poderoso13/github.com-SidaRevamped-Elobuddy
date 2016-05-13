@@ -720,12 +720,12 @@ namespace JokerFioraBuddy.Evade
             #endregion
         }
 
-        public static EvadeSpellData GetByName(string Name)
+        public static EvadeSpellData GetByName(string name)
         {
-            Name = Name.ToLower();
+            name = name.ToLower();
             foreach (var evadeSpellData in Spells)
             {
-                if (evadeSpellData.Name.ToLower() == Name)
+                if (evadeSpellData.Name.ToLower() == name)
                 {
                     return evadeSpellData;
                 }

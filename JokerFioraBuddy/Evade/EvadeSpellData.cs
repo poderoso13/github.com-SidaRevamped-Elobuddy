@@ -42,7 +42,7 @@ namespace JokerFioraBuddy.Evade
         public int Speed;
         public SpellValidTargets[] ValidTargets;
 
-        public int _dangerLevel;
+        public int DangerLevel;
 
         public EvadeSpellData()
         {
@@ -51,7 +51,7 @@ namespace JokerFioraBuddy.Evade
         public EvadeSpellData(string name, int dangerLevel)
         {
             Name = name;
-            _dangerLevel = dangerLevel;
+            DangerLevel = dangerLevel;
         }
 
         public bool IsTargetted
@@ -77,7 +77,7 @@ namespace JokerFioraBuddy.Evade
             FixedRange = fixedRange;
             Delay = delay;
             Speed = speed;
-            _dangerLevel = dangerLevel;
+            DangerLevel = dangerLevel;
             IsDash = true;
         }
     }
@@ -95,7 +95,7 @@ namespace JokerFioraBuddy.Evade
             MaxRange = range;
             Slot = slot;
             Delay = delay;
-            _dangerLevel = dangerLevel;
+            DangerLevel = dangerLevel;
             IsSummonerSpell = isSummonerSpell;
             IsBlink = true;
         }
@@ -108,7 +108,7 @@ namespace JokerFioraBuddy.Evade
             Name = name;
             Slot = slot;
             Delay = delay;
-            _dangerLevel = dangerLevel;
+            DangerLevel = dangerLevel;
             IsInvulnerability = true;
         }
     }
@@ -120,7 +120,7 @@ namespace JokerFioraBuddy.Evade
             Name = name;
             Slot = slot;
             Delay = delay;
-            _dangerLevel = dangerLevel;
+            DangerLevel = dangerLevel;
             IsSpellShield = isSpellShield;
             IsShield = !IsSpellShield;
         }
@@ -133,7 +133,7 @@ namespace JokerFioraBuddy.Evade
             Name = name;
             Slot = slot;
             Delay = delay;
-            _dangerLevel = dangerLevel;
+            DangerLevel = dangerLevel;
             MoveSpeedTotalAmount = amount;
             IsMovementSpeedBuff = true;
         }

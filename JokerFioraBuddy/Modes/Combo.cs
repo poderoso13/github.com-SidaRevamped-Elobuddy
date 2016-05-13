@@ -1,7 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using SharpDX;
-using System;
 using Settings = JokerFioraBuddy.Config.Modes.Combo;
 
 namespace JokerFioraBuddy.Modes
@@ -21,25 +19,25 @@ namespace JokerFioraBuddy.Modes
 
             if (target != null && target.IsValidTarget(R.Range))
             {
-                PassiveManager.castAutoAttack(target);
+                PassiveManager.CastAutoAttack(target);
 
                 if (Settings.UseYomuus)
                     ItemManager.UseYomu();
 
                 if (Settings.UseQ && Q.IsReady() && target.IsValidTarget(Q.Range) && !target.IsZombie)
-                    SpellManager.castQ();
+                    SpellManager.CastQ();
 
-                if (Settings.UseCutlassBOTRK)
+                if (Settings.UseCutlassBotrk)
                     ItemManager.UseCastables();
                 
                 if (Settings.UseTiamatHydra)
-                    ItemManager.useHydra(target);
+                    ItemManager.UseHydra(target);
 
                 if (Settings.UseE && E.IsReady() && target.IsValidTarget(E.Range) && !target.IsZombie)
                     E.Cast();
 
-                if (Settings.UseR && R.IsReady() && target.IsValidTarget(R.Range) && !target.IsZombie && Config.Modes.Combo.useRonTarget(target.ChampionName) && Player.Instance.HealthPercent <= Config.Modes.Combo.rSliderValue())
-                    SpellManager.castR();
+                if (Settings.UseR && R.IsReady() && target.IsValidTarget(R.Range) && !target.IsZombie && Config.Modes.Combo.UseRonTarget(target.ChampionName) && Player.Instance.HealthPercent <= Config.Modes.Combo.RSliderValue())
+                    SpellManager.CastR();
                 
             }
         }

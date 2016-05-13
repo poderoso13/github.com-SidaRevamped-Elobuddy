@@ -24,9 +24,9 @@ namespace JokerFioraBuddy.Modes
             get { return SpellManager.R; }
         }
 
-        protected Spell.Targeted IG
+        protected Spell.Targeted Ig
         {
-            get { return SpellManager.IG; }
+            get { return SpellManager.Ig; }
         }
 
         public abstract bool ShouldBeExecuted();

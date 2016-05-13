@@ -1,6 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using System;
 using System.Linq;
 
 using Settings = JokerFioraBuddy.Config.Modes.LastHit;

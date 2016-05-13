@@ -1,10 +1,6 @@
 ﻿using System.Linq;
-using System;
 using EloBuddy;
 using EloBuddy.SDK;
-using EloBuddy.SDK.Rendering;
-using SharpDX;
-
 using Settings = JokerFioraBuddy.Config.Modes.Perma;
 using ComboSettings = JokerFioraBuddy.Config.Modes.Combo;
 
@@ -29,10 +25,10 @@ namespace JokerFioraBuddy.Modes
             if (Player.Instance.GetSpellSlotFromName("summonerdot") == SpellSlot.Summoner1 ||
                 Player.Instance.GetSpellSlotFromName("summonerdot") == SpellSlot.Summoner2)
             {
-                if (ObjectManager.Player.IsDead || !IG.IsReady() || !Settings.UseIgnite) return;
+                if (ObjectManager.Player.IsDead || !Ig.IsReady() || !Settings.UseIgnite) return;
                 if (ObjectManager.Get<AIHeroClient>().Where(
                     h =>
-                        h.IsValidTarget(IG.Range) &&
+                        h.IsValidTarget(Ig.Range) &&
                         h.Health <
                         ObjectManager.Player.GetSummonerSpellDamage(h, DamageLibrary.SummonerSpells.Ignite)).Count() <=
                     0) return;
@@ -40,18 +36,14 @@ namespace JokerFioraBuddy.Modes
                 var target = ObjectManager.Get<AIHeroClient>()
                     .Where(
                         h =>
-                            h.IsValidTarget(IG.Range) &&
+                            h.IsValidTarget(Ig.Range) &&
                             h.Health <
                             ObjectManager.Player.GetSummonerSpellDamage(h, DamageLibrary.SummonerSpells.Ignite));
-                if (Config.Modes.Perma.igniteMode.Equals("0"))
-                    IG.Cast(target.First());
-                else
+                var aiHeroClients = target as AIHeroClient[] ?? target.ToArray();
+                if (aiHeroClients.First().Distance(Player.Instance) > 450 || (Player.Instance.HealthPercent < 25))
                 {
-                    if (target.First().Distance(Player.Instance) > 450 || (Player.Instance.HealthPercent < 25))
-                    {
                       
-                        IG.Cast(target.First());
-                    }
+                    Ig.Cast(aiHeroClients.First());
                 }
             }
 
@@ -75,7 +67,7 @@ namespace JokerFioraBuddy.Modes
         {
             var d = 2 * Player.Instance.GetAutoAttackDamage(unit);
 
-            if (ItemManager.BOTRK.IsReady() && ItemManager.BOTRK.IsOwned())
+            if (ItemManager.Botrk.IsReady() && ItemManager.Botrk.IsOwned())
                 d += Player.Instance.GetItemDamage(unit, ItemId.Blade_of_the_Ruined_King);
 
             if (ItemManager.Cutl.IsReady() && ItemManager.Cutl.IsOwned())
@@ -97,7 +89,7 @@ namespace JokerFioraBuddy.Modes
                 d += Player.Instance.GetAutoAttackDamage(unit) + Player.Instance.BaseAttackDamage * 3;
 
             if ((Player.Instance.GetSpellSlotFromName("summonerdot") == SpellSlot.Summoner1 ||
-                Player.Instance.GetSpellSlotFromName("summonerdot") == SpellSlot.Summoner2) && Settings.UseIgnite && SpellManager.IG.IsReady())
+                Player.Instance.GetSpellSlotFromName("summonerdot") == SpellSlot.Summoner2) && Settings.UseIgnite && SpellManager.Ig.IsReady())
                 d += Player.Instance.GetSummonerSpellDamage(unit, DamageLibrary.SummonerSpells.Ignite);
 
             if (ComboSettings.UseQ && SpellManager.Q.IsReady())
@@ -118,7 +110,7 @@ namespace JokerFioraBuddy.Modes
             if (SpellManager.R.IsReady())
                 d += Player.Instance.GetSpellDamage(unit, SpellSlot.R);
 
-            return (float)d;
+            return d;
 
         }
     }

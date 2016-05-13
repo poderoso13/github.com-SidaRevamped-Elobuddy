@@ -1,8 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using SharpDX;
-using System;
-
 using Settings = JokerFioraBuddy.Config.Modes.Flee;
 
 namespace JokerFioraBuddy.Modes

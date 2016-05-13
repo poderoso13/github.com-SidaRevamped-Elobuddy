@@ -1,19 +1,11 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using EloBuddy.SDK.Enumerations;
-using EloBuddy.SDK.Events;
-using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using EloBuddy.SDK.Rendering;
-using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using JokerFioraBuddy.Evade;
-
+using JokerFioraBuddy.Properties;
+using static JokerFioraBuddy.Config.ShieldBlock;
 using Settings = JokerFioraBuddy.Config.ShieldBlock;
 
 namespace JokerFioraBuddy
@@ -26,7 +18,7 @@ namespace JokerFioraBuddy
 
         static SpellBlock()
         {
-            const SpellSlot N48 = (SpellSlot)48;
+            const SpellSlot n48 = (SpellSlot)48;
 
             var q = new BlockedSpell(SpellSlot.Q);
             var w = new BlockedSpell(SpellSlot.W);
@@ -151,7 +143,7 @@ namespace JokerFioraBuddy
                 });
             BlockedSpells.Add(
                 "Leona", new List<BlockedSpell> { new BlockedSpell("LeonaShieldOfDaybreakAttack", "Stun Q", true) });
-            BlockedSpells.Add("Lissandra", new List<BlockedSpell> { new BlockedSpell(N48) { Name = "R" } });
+            BlockedSpells.Add("Lissandra", new List<BlockedSpell> { new BlockedSpell(n48) { Name = "R" } });
             BlockedSpells.Add("Lulu", new List<BlockedSpell> { w });
             BlockedSpells.Add("Lux", new List<BlockedSpell> { q, r});
             BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e });
@@ -187,7 +179,7 @@ namespace JokerFioraBuddy
                         Name = "Cougar W"
                     }
                 });
-            BlockedSpells.Add("Nocturne", new List<BlockedSpell> { r });
+            BlockedSpells.Add("Nocturne", new List<BlockedSpell> { r});
             BlockedSpells.Add("Nunu", new List<BlockedSpell> { e });
             BlockedSpells.Add("Olaf", new List<BlockedSpell> { e });
             BlockedSpells.Add("Pantheon", new List<BlockedSpell> { q, w });
@@ -316,19 +308,16 @@ namespace JokerFioraBuddy
             var enemies = EntityManager.Heroes.Enemies;
 
             if (enemies.Any(o => o.ChampionName.Equals("Kalista")))
-                Config.ShieldBlock.Menu.Add("Oathsworn", new CheckBox("Block Oathsworn Knockup (Kalista R)", true));
+                Menu.Add("Oathsworn", new CheckBox("Block Oathsworn Knockup (Kalista R)"));
 
             foreach (var unit in enemies)
             {
-                if (!SpellBlock.BlockedSpells.ContainsKey(unit.ChampionName))
+                if (!BlockedSpells.ContainsKey(unit.ChampionName))
                     continue;
 
-                var name = unit.ChampionName.Equals("MonkeyKing") ? "Wukong" : unit.ChampionName;
-
-                foreach (var spell in SpellBlock.BlockedSpells[unit.ChampionName])
+                foreach (var spell in BlockedSpells[unit.ChampionName])
                 {
-                    var slot = spell.Slot.Equals(48) ? SpellSlot.R : spell.Slot;
-                    Config.ShieldBlock.Menu.Add(unit.ChampionName + spell.MenuName, new CheckBox(unit.ChampionName + " - " + spell.DisplayName, true));
+                    Menu.Add(unit.ChampionName + spell.MenuName, new CheckBox(unit.ChampionName + " - " + spell.DisplayName));
                 }
             }
 
@@ -337,7 +326,7 @@ namespace JokerFioraBuddy
 
         static void OnUpdate(EventArgs args)
         {
-            if (!Settings.BlockSpells || !SpellManager.W.IsReady())
+            if (!BlockSpells || !SpellManager.W.IsReady())
                 return;
 
             foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(SpellManager.W.CastDelay + Game.Ping / 2f)))
@@ -350,7 +339,7 @@ namespace JokerFioraBuddy
                 if (enemy == null)
                     continue;
 
-                var spells = new List<BlockedSpell>();
+                List<BlockedSpell> spells;
 
                 BlockedSpells.TryGetValue(enemy.ChampionName, out spells);
 
@@ -360,7 +349,7 @@ namespace JokerFioraBuddy
 
                 foreach (var spell in spells)
                 {
-                    var item = Config.ShieldBlock.Menu[enemy.ChampionName + spell.MenuName];
+                    var item = Menu[enemy.ChampionName + spell.MenuName];
 
                     if (item == null || !item.Cast<CheckBox>().CurrentValue)
                         continue;
@@ -373,7 +362,7 @@ namespace JokerFioraBuddy
                     if (!spell.PassesSpellCondition(skillshot.SpellData.SpellName))
                         continue;
 
-                    if (Config.ShieldBlock.EvadeIntegration)
+                    if (EvadeIntegration)
                     Program.CastW(skillshot.Unit);
 
                 }
@@ -383,13 +372,12 @@ namespace JokerFioraBuddy
         public static bool Contains(AIHeroClient unit, GameObjectProcessSpellCastEventArgs args)
         {
             var name = unit.ChampionName;
-            var slot = args.Slot.Equals(48) ? SpellSlot.R : args.Slot;
 
-            if (args.SData.Name.Equals("KalistaRAllyDash") && Config.ShieldBlock.Menu["Oathsworn"].Cast<CheckBox>().CurrentValue)
+            if (args.SData.Name.Equals("KalistaRAllyDash") && Menu["Oathsworn"].Cast<CheckBox>().CurrentValue)
             {
                 return true;
             }
-            var spells = new List<BlockedSpell>();
+            List<BlockedSpell> spells;
             BlockedSpells.TryGetValue(name, out spells);
 
             if (spells == null || spells.Count == 0)
@@ -400,7 +388,7 @@ namespace JokerFioraBuddy
             foreach (var spell in
                 spells)
             {
-                var item = Config.ShieldBlock.Menu[name + spell.MenuName];
+                var item = Menu[name + spell.MenuName];
                 if (item == null || !item.Cast<CheckBox>().CurrentValue)
                 {
                     continue;
@@ -487,7 +475,7 @@ namespace JokerFioraBuddy
         public string SpellName;
         public bool UseContains = true;
 
-        public BlockedSpell(string spellName, string displayName, bool isAutoAttack = false, bool enabled = true)
+        public BlockedSpell(string spellName, string displayName, bool isAutoAttack = false)
         {
             SpellName = spellName.ToLower();
             Name = displayName;
@@ -571,7 +559,7 @@ namespace JokerFioraBuddy
             {
                 foreach (var buff in unit.Buffs)
                 {
-                    Console.WriteLine(buff.Name + " " + buff.Count);
+                    Console.WriteLine(buff.Name + Resources.BlockedSpell_PassesBuffCondition__ + buff.Count);
                 }
             }
             return BuffCount == 0 ? unit.HasBuff(BuffName) : unit.GetBuffCount(BuffName).Equals(BuffCount);

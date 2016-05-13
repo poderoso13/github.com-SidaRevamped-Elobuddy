@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
 using Color = System.Drawing.Color;
@@ -12,7 +11,7 @@ namespace JokerFioraBuddy.Evade
     {
         private const int CircleLineSegmentN = 22;
 
-        public static Vector3 SwitchYZ(this Vector3 v)
+        public static Vector3 SwitchYz(this Vector3 v)
         {
             return new Vector3(v.X, v.Z, v.Y);
         }
@@ -242,11 +241,11 @@ namespace JokerFioraBuddy.Evade
                 var outRadius = (Radius + offset) / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
 
                 result.Add(Center);
-                var Side1 = Direction.Rotated(-Angle * 0.5f);
+                var side1 = Direction.Rotated(-Angle * 0.5f);
 
                 for (var i = 0; i <= CircleLineSegmentN; i++)
                 {
-                    var cDirection = Side1.Rotated(i * Angle / CircleLineSegmentN).Normalized();
+                    var cDirection = side1.Rotated(i * Angle / CircleLineSegmentN).Normalized();
                     result.Add(new Vector2(Center.X + outRadius * cDirection.X, Center.Y + outRadius * cDirection.Y));
                 }
 

@@ -2,9 +2,7 @@
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using SharpDX;
 
 namespace JokerFioraBuddy
@@ -138,51 +136,51 @@ namespace JokerFioraBuddy
         {
             private static readonly Menu Menu;
 
-            public static int SkinID
+            public static int SkinId
             {
                 get { return Menu["skinid"].Cast<Slider>().CurrentValue; }
             }
 
-            public static bool enableSkinHack
+            public static bool EnableSkinHack
             {
                 get { return Menu["skinhack"].Cast<CheckBox>().CurrentValue; }
             }
 
-            public static bool enableLevelUP
+            public static bool EnableLevelUp
             {
                 get { return Menu["evolveskills"].Cast<CheckBox>().CurrentValue; }
             }
-            public static bool drawQ
+            public static bool DrawQ
             {
                 get { return Menu["drawq"].Cast<CheckBox>().CurrentValue; }
             }
-            public static bool drawW
+            public static bool DrawW
             {
                 get { return Menu["draww"].Cast<CheckBox>().CurrentValue; }
             }
-            public static bool drawE
+            public static bool DrawE
             {
                 get { return Menu["drawe"].Cast<CheckBox>().CurrentValue; }
             }
-            public static bool drawR
+            public static bool DrawR
             {
                 get { return Menu["drawr"].Cast<CheckBox>().CurrentValue; }
             }
-            public static Color currentColor
+            public static Color CurrentColor
             {
-                get { return colorlist[Menu["mastercolor"].Cast<Slider>().CurrentValue]; }
+                get { return _colorlist[Menu["mastercolor"].Cast<Slider>().CurrentValue]; }
             }
 
 
             public static Slider SkinSlider = new Slider("SkinID : ({0})", 0, 0, 4);
             public static CheckBox SkinEnable = new CheckBox("Enable");
             public static CheckBox EvolveEnable = new CheckBox("Enable");
-            public static CheckBox qdraw = new CheckBox("Draw Q",false);
-            public static CheckBox wdraw = new CheckBox("Draw W", false);
-            public static CheckBox edraw = new CheckBox("Draw E", false);
-            public static CheckBox rdraw = new CheckBox("Draw R", false);
-            static Color[] colorlist = {Color.Green,Color.Aqua,Color.Black,Color.Blue,Color.Firebrick,Color.Gold,Color.Pink,Color.Violet,Color.White,Color.Lime,Color.LimeGreen,Color.Yellow,Color.Magenta};
-            static Slider masterColorSlider = new Slider("Color Slider",0,0,colorlist.Length-1);
+            public static CheckBox Qdraw = new CheckBox("Draw Q",false);
+            public static CheckBox Wdraw = new CheckBox("Draw W", false);
+            public static CheckBox Edraw = new CheckBox("Draw E", false);
+            public static CheckBox Rdraw = new CheckBox("Draw R", false);
+            static Color[] _colorlist = {Color.Green,Color.Aqua,Color.Black,Color.Blue,Color.Firebrick,Color.Gold,Color.Pink,Color.Violet,Color.White,Color.Lime,Color.LimeGreen,Color.Yellow,Color.Magenta};
+            static Slider _masterColorSlider = new Slider("Color Slider",0,0,_colorlist.Length-1);
 
             static Misc()
             {
@@ -193,35 +191,35 @@ namespace JokerFioraBuddy
                 Menu.AddGroupLabel("Auto Level Skills");
                 Menu.Add("evolveskills", EvolveEnable);
                 Menu.AddGroupLabel("Drawings");
-                Menu.Add("mastercolor", masterColorSlider);
-                Menu.Add("drawq", qdraw);
-                Menu.Add("draww", wdraw);
-                Menu.Add("drawe", edraw);
-                Menu.Add("drawr", rdraw);
+                Menu.Add("mastercolor", _masterColorSlider);
+                Menu.Add("drawq", Qdraw);
+                Menu.Add("draww", Wdraw);
+                Menu.Add("drawe", Edraw);
+                Menu.Add("drawr", Rdraw);
                 SkinSlider.OnValueChange += SkinSlider_OnValueChange;
                 SkinEnable.OnValueChange += SkinEnable_OnValueChange;
             }
 
             private static void SkinEnable_OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
             {
-                if (!Misc.enableSkinHack)
+                if (!EnableSkinHack)
                 {
                     Player.SetSkinId(0);
                     return;
                 }
 
-                Player.SetSkinId(Misc.SkinID);
+                Player.SetSkinId(SkinId);
             }
 
             private static void SkinSlider_OnValueChange(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
             {
-                if (!Misc.enableSkinHack)
+                if (!EnableSkinHack)
                 {
                     Player.SetSkinId(0);
                     return;
                 }
 
-                Player.SetSkinId(Misc.SkinID);
+                Player.SetSkinId(SkinId);
             }
 
             public static void Initialize()
@@ -265,7 +263,7 @@ namespace JokerFioraBuddy
 
             public static class Combo
             {
-                static List<EloBuddy.AIHeroClient> enemies = EntityManager.Heroes.Enemies;
+                static List<AIHeroClient> _enemies = EntityManager.Heroes.Enemies;
                 public static bool UseQ
                 {
                     get { return Menu["comboUseQ"].Cast<CheckBox>().CurrentValue; }
@@ -286,7 +284,7 @@ namespace JokerFioraBuddy
                     get { return Menu["comboUseTiamatHydra"].Cast<CheckBox>().CurrentValue; }
                 }
 
-                public static bool UseCutlassBOTRK
+                public static bool UseCutlassBotrk
                 {
                     get { return Menu["comboUseCutlassBOTRK"].Cast<CheckBox>().CurrentValue; }
                 }
@@ -296,12 +294,12 @@ namespace JokerFioraBuddy
                     get { return Menu["comboUseYomuus"].Cast<CheckBox>().CurrentValue; }
                 }
 
-                public static bool useRonTarget(string x)
+                public static bool UseRonTarget(string x)
                 {
                      return Menu[x].Cast<CheckBox>().CurrentValue; 
                 }
 
-                public static int rSliderValue()
+                public static int RSliderValue()
                 {
                     return Menu["useRSlider"].Cast<Slider>().CurrentValue;
                 }
@@ -321,7 +319,7 @@ namespace JokerFioraBuddy
                 public static void Initialize()
                 {
                     Menu.AddLabel("Use R on");
-                    foreach (var unit in enemies)
+                    foreach (var unit in _enemies)
                     {
                         Menu.Add(unit.ChampionName, new CheckBox(unit.ChampionName));
                     }
@@ -454,7 +452,7 @@ namespace JokerFioraBuddy
 
             public static class Perma
             {
-                static Slider igniteModeSlider = new Slider("Ignite Mode : Smart", 1, 0, 1);
+                static Slider _igniteModeSlider = new Slider("Ignite Mode : Smart", 1, 0, 1);
 
                
 
@@ -468,7 +466,7 @@ namespace JokerFioraBuddy
                     get { return Menu["useWifKillable"].Cast<CheckBox>().CurrentValue; }
                 }
 
-                public static int igniteMode
+                public static int IgniteMode
                 {
                     get { return Menu["igniteMode"].Cast<Slider>().CurrentValue; }
                 }
@@ -478,22 +476,22 @@ namespace JokerFioraBuddy
                 {
                     Menu.AddGroupLabel("Perma Active");
                     Menu.Add("permaUseIG", new CheckBox("Auto-Ignite Champions"));
-                    Menu.Add("igniteMode", igniteModeSlider);
+                    Menu.Add("igniteMode", _igniteModeSlider);
                     Menu.Add("useWifKillable", new CheckBox("Auto-W if enemy is killable"));
 
                 }
 
                 public static void Initialize()
                 {
-                    igniteModeSlider.OnValueChange += IgniteModeSlider_OnValueChange;
+                    _igniteModeSlider.OnValueChange += IgniteModeSlider_OnValueChange;
                 }
 
                 private static void IgniteModeSlider_OnValueChange(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
                 {
-                    if (igniteModeSlider.CurrentValue == 0)
-                        igniteModeSlider.DisplayName = "Ignite Mode : Normal Mode";
+                    if (_igniteModeSlider.CurrentValue == 0)
+                        _igniteModeSlider.DisplayName = "Ignite Mode : Normal Mode";
                     else
-                        igniteModeSlider.DisplayName = "Ignite Mode : Smart Mode";
+                        _igniteModeSlider.DisplayName = "Ignite Mode : Smart Mode";
                 }
             }
         }

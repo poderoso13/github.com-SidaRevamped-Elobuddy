@@ -2,11 +2,7 @@
 using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
-using EloBuddy.SDK.Rendering;
-using EloBuddy.SDK.Events;
 using SharpDX;
-using JokerFioraBuddy.Modes;
-
 using Settings = JokerFioraBuddy.Config.Drawings;
 
 namespace JokerFioraBuddy

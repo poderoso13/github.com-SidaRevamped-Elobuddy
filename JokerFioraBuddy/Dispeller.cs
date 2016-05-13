@@ -1,18 +1,9 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using EloBuddy.SDK.Enumerations;
-using EloBuddy.SDK.Events;
-using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using EloBuddy.SDK.Rendering;
-using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using JokerFioraBuddy.Evade;
 
 namespace JokerFioraBuddy
 {
@@ -32,13 +23,13 @@ namespace JokerFioraBuddy
 
             foreach (var dispell in Dispell.GetDispellList().Where(d => EntityManager.Heroes.Enemies.Any(h => h.ChampionName.Equals(d.ChampionName))))
             {
-                Config.Dispell.Menu.Add(dispell.ChampionName + dispell.BuffName, new CheckBox(dispell.ChampionName + " - " + dispell.Slot, true));
+                Config.Dispell.Menu.Add(dispell.ChampionName + dispell.BuffName, new CheckBox(dispell.ChampionName + " - " + dispell.Slot));
             }
 
-            Game.OnUpdate += OnUpdate;
+            Game.OnTick += OnTick;
         }
 
-        static void OnUpdate(EventArgs args)
+        static void OnTick(EventArgs args)
         {
             if (!SpellManager.W.IsReady() || !Config.Dispell.DispellSpells)
                 return;

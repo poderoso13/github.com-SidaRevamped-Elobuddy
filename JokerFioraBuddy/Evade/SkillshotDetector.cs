@@ -13,7 +13,7 @@ namespace JokerFioraBuddy.Evade
 
         public delegate void OnDetectSkillshotH(Skillshot skillshot);
 
-        public static List<Skillshot> detectedSkillShots = new List<Skillshot>();
+        public static List<Skillshot> DetectedSkillShots = new List<Skillshot>();
 
         static SkillshotDetector()
         {
@@ -48,13 +48,13 @@ namespace JokerFioraBuddy.Evade
                 return;
             }
 
-            for (var i = detectedSkillShots.Count - 1; i >= 0; i--)
+            for (var i = DetectedSkillShots.Count - 1; i >= 0; i--)
             {
-                var skillshot = detectedSkillShots[i];
+                var skillshot = DetectedSkillShots[i];
                 if (skillshot.SpellData.ToggleParticleName != "" &&
                     sender.Name.Contains(skillshot.SpellData.ToggleParticleName))
                 {
-                    detectedSkillShots.RemoveAt(i);
+                    DetectedSkillShots.RemoveAt(i);
                 }
             }
         }
@@ -142,7 +142,7 @@ namespace JokerFioraBuddy.Evade
 
             if (OnDeleteMissile != null)
             {
-                foreach (var skillshot in detectedSkillShots)
+                foreach (var skillshot in DetectedSkillShots)
                 {
                     if (skillshot.SpellData.MissileSpellName == spellName &&
                         (skillshot.Unit.NetworkId == unit.NetworkId &&
@@ -160,7 +160,7 @@ namespace JokerFioraBuddy.Evade
                 "Missile deleted: " + missile.SData.Name + " D: " + missile.EndPosition.Distance(missile.Position));
 #endif
 
-            detectedSkillShots.RemoveAll(
+            DetectedSkillShots.RemoveAll(
                 skillshot =>
                     (skillshot.SpellData.MissileSpellName == spellName ||
                      skillshot.SpellData.ExtraMissileNames.Contains(spellName)) &&
@@ -202,7 +202,7 @@ namespace JokerFioraBuddy.Evade
         {
             if (args.SData.Name == "dravenrdoublecast")
             {
-                detectedSkillShots.RemoveAll(
+                DetectedSkillShots.RemoveAll(
                     s => s.Unit.NetworkId == sender.NetworkId && s.SpellData.SpellName == "DravenRCast");
             }
 

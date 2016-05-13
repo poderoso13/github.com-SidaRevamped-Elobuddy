@@ -369,7 +369,7 @@ namespace JokerFioraBuddy.Evade
             int delay = 0,
             Obj_AI_Base unit = null)
         {
-            var Distance = 0f;
+            var distance = 0f;
             timeOffset += Game.Ping / 2;
 
             speed = (speed == -1) ? (int)ObjectManager.Player.MoveSpeed : speed;
@@ -398,8 +398,8 @@ namespace JokerFioraBuddy.Evade
                     {
                         segmentIntersections.Add(
                             new FoundIntersection(
-                                Distance + intersection.Point.Distance(from),
-                                (int)((Distance + intersection.Point.Distance(from)) * 1000 / speed),
+                                distance + intersection.Point.Distance(from),
+                                (int)((distance + intersection.Point.Distance(from)) * 1000 / speed),
                                 intersection.Point, from));
                     }
                 }
@@ -407,7 +407,7 @@ namespace JokerFioraBuddy.Evade
                 var sortedList = segmentIntersections.OrderBy(o => o.Distance).ToList();
                 allIntersections.AddRange(sortedList);
 
-                Distance += from.Distance(to);
+                distance += from.Distance(to);
             }
 
             //Skillshot with missile.

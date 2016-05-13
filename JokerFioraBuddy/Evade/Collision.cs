@@ -34,8 +34,8 @@ namespace JokerFioraBuddy.Evade
 
     internal static class Collision
     {
-        private static int WallCastT;
-        private static Vector2 YasuoWallCastedPos;
+        private static int _wallCastT;
+        private static Vector2 _yasuoWallCastedPos;
 
         public static void Initialize()
         { }
@@ -49,8 +49,8 @@ namespace JokerFioraBuddy.Evade
         {
             if (sender.IsValid && sender.Team == ObjectManager.Player.Team && args.SData.Name == "YasuoWMovingWall")
             {
-                WallCastT = Environment.TickCount;
-                YasuoWallCastedPos = sender.ServerPosition.To2D();
+                _wallCastT = Environment.TickCount;
+                _yasuoWallCastedPos = sender.ServerPosition.To2D();
             }
         }
 
@@ -72,10 +72,7 @@ namespace JokerFioraBuddy.Evade
                     result.Add(path[i] + Distance * (path[i + 1] - path[i]).Normalized());
                     break;
                 }
-                else
-                {
-                    result.Add(path[i + 1]);
-                }
+                result.Add(path[i + 1]);
                 Distance -= dist;
             }
             return result.Count > 0 ? result.ToArray() : new List<Vector3> { path.Last() }.ToArray();
@@ -215,7 +212,7 @@ namespace JokerFioraBuddy.Evade
                         var wallWidth = (300 + 50 * Convert.ToInt32(level));
 
 
-                        var wallDirection = (wall.Position.To2D() - YasuoWallCastedPos).Normalized().Perpendicular();
+                        var wallDirection = (wall.Position.To2D() - _yasuoWallCastedPos).Normalized().Perpendicular();
                         var wallStart = wall.Position.To2D() + wallWidth / 2 * wallDirection;
                         var wallEnd = wallStart - wallWidth * wallDirection;
                         var wallPolygon = new Geometry.Rectangle(wallStart, wallEnd, 75).ToPolygon();
@@ -243,7 +240,7 @@ namespace JokerFioraBuddy.Evade
                                                  skillshot.SpellData.Delay -
                                                  (Environment.TickCount - skillshot.StartTick)) + 100 +
                                              (1000 * intersection.Distance(from)) / skillshot.SpellData.MissileSpeed;
-                            if (collisionT - WallCastT < 4000)
+                            if (collisionT - _wallCastT < 4000)
                             {
                                 if (skillshot.SpellData.Type != SkillShotType.SkillshotMissileLine)
                                 {

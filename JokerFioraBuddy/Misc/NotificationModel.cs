@@ -5,11 +5,11 @@ namespace JokerFioraBuddy.Misc
 {
     public class NotificationModel
     {
-        private float time;
-        private float v1;
-        private float v2;
-        private string v3;
-        private Color deepSkyBlue;
+        private float _time;
+        private float _v1;
+        private float _v2;
+        private string _v3;
+        private Color _deepSkyBlue;
 
         public float StartTimer { get; set; }
         public float ShowTimer { get; set; }
@@ -29,11 +29,11 @@ namespace JokerFioraBuddy.Misc
 
         public NotificationModel(float time, float v1, float v2, string v3, Color deepSkyBlue)
         {
-            this.time = time;
-            this.v1 = v1;
-            this.v2 = v2;
-            this.v3 = v3;
-            this.deepSkyBlue = deepSkyBlue;
+            _time = time;
+            _v1 = v1;
+            _v2 = v2;
+            _v3 = v3;
+            _deepSkyBlue = deepSkyBlue;
         }
     }
 }

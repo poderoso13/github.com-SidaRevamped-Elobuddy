@@ -90,11 +90,11 @@ namespace JokerFioraBuddy.Evade
                 }
                 if (skillshot.SpellData.SpellName == "SyndraE" || skillshot.SpellData.SpellName == "syndrae5")
                 {
-                    const int Angle = 60;
+                    const int angle = 60;
                     var edge1 =
                         (skillshot.End - skillshot.Unit.ServerPosition.To2D()).Rotated(
-                            -Angle / 2f * (float)Math.PI / 180);
-                    var edge2 = edge1.Rotated(Angle * (float)Math.PI / 180);
+                            -angle / 2f * (float)Math.PI / 180);
+                    var edge2 = edge1.Rotated(angle * (float)Math.PI / 180);
                     foreach (var skillshotToAdd in
                         from minion in
                             ObjectManager.Get<Obj_AI_Minion>()

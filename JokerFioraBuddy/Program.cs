@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Drawing;
-using System.Runtime.Remoting.Channels;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
 using EloBuddy.SDK.Rendering;
 using JokerFioraBuddy.Evade;
-using SharpDX;
 using Color = System.Drawing.Color;
 using PermaSettings = JokerFioraBuddy.Config.Modes.Perma;
 using ComboSettings = JokerFioraBuddy.Config.Modes.Combo;
 using ShieldSettings = JokerFioraBuddy.Config.ShieldBlock;
 using JokerFioraBuddy.Misc;
-using System.Threading;
+using JokerFioraBuddy.Properties;
 
 namespace JokerFioraBuddy
 {
@@ -42,7 +39,7 @@ namespace JokerFioraBuddy
 
             UpdateChecker.CheckForUpdates();
 
-            while (UpdateChecker.gitVersion == System.Version.Parse("0.0.0.0"))
+            while (UpdateChecker.GitVersion == System.Version.Parse("0.0.0.0"))
             { }
 
             ShowNotification(Config.Drawings.ShowNotification);
@@ -52,7 +49,7 @@ namespace JokerFioraBuddy
             Drawing.OnDraw += Drawing_OnDraw;
 
             Player.LevelSpell(SpellSlot.Q);
-            Player.SetSkinId(Config.Misc.SkinID);
+            Player.SetSkinId(Config.Misc.SkinId);
         }
 
         private static void ShowNotification(bool showNotification)
@@ -60,34 +57,34 @@ namespace JokerFioraBuddy
 
             if (showNotification)
             {
-                if (UpdateChecker.gitVersion != typeof(Program).Assembly.GetName().Version)
-                    Notification.DrawNotification(new NotificationModel(Game.Time, 7f, 2f, "OUTDATED - Please update to version: " + UpdateChecker.gitVersion, Color.Red));
+                if (UpdateChecker.GitVersion != typeof(Program).Assembly.GetName().Version)
+                    Notification.DrawNotification(new NotificationModel(Game.Time, 7f, 2f, "OUTDATED - Please update to version: " + UpdateChecker.GitVersion, Color.Red));
                 else
-                    Notification.DrawNotification(new NotificationModel(Game.Time, 7f, 2f, "UPDATED - Version: " + UpdateChecker.gitVersion, Color.White));
+                    Notification.DrawNotification(new NotificationModel(Game.Time, 7f, 2f, "UPDATED - Version: " + UpdateChecker.GitVersion, Color.White));
             }
             else
             {
-                if (UpdateChecker.gitVersion != typeof(Program).Assembly.GetName().Version)
-                    Chat.Print("<font color='#15C3AC'>Joker Fiora - The Grand Duelist:</font> <font color='#FF0000'>" + "OUTDATED - Please update to version: " + UpdateChecker.gitVersion + "</font>");
+                if (UpdateChecker.GitVersion != typeof(Program).Assembly.GetName().Version)
+                    Chat.Print("<font color='#15C3AC'>Joker Fiora - The Grand Duelist:</font> <font color='#FF0000'>" + "OUTDATED - Please update to version: " + UpdateChecker.GitVersion + "</font>");
                 else
-                    Chat.Print("<font color='#15C3AC'>Joker Fiora - The Grand Duelist:</font> <font color='#00FF00'>" + "UPDATED - Version: " + UpdateChecker.gitVersion + "</font>");
+                    Chat.Print("<font color='#15C3AC'>Joker Fiora - The Grand Duelist:</font> <font color='#00FF00'>" + "UPDATED - Version: " + UpdateChecker.GitVersion + "</font>");
             }
         }
 
         private static void Drawing_OnDraw(EventArgs args)
         {
             
-            if (Config.Misc.drawQ)
-                Circle.Draw(SpellManager.Q.IsReady() ? Config.Misc.currentColor : SharpDX.Color.Red,
+            if (Config.Misc.DrawQ)
+                Circle.Draw(SpellManager.Q.IsReady() ? Config.Misc.CurrentColor : SharpDX.Color.Red,
                     SpellManager.Q.Range, 3F, Player.Instance.Position);
-            if (Config.Misc.drawW)
-                Circle.Draw(SpellManager.W.IsReady() ? Config.Misc.currentColor : SharpDX.Color.Red,
+            if (Config.Misc.DrawW)
+                Circle.Draw(SpellManager.W.IsReady() ? Config.Misc.CurrentColor : SharpDX.Color.Red,
                     SpellManager.W.Range, 3F, Player.Instance.Position);
-            if (Config.Misc.drawE)
-                Circle.Draw(SpellManager.E.IsReady() ? Config.Misc.currentColor : SharpDX.Color.Red,
+            if (Config.Misc.DrawE)
+                Circle.Draw(SpellManager.E.IsReady() ? Config.Misc.CurrentColor : SharpDX.Color.Red,
                     SpellManager.E.Range, 3F, Player.Instance.Position);
-            if (Config.Misc.drawR)
-                Circle.Draw(SpellManager.R.IsReady() ? Config.Misc.currentColor : SharpDX.Color.Red,
+            if (Config.Misc.DrawR)
+                Circle.Draw(SpellManager.R.IsReady() ? Config.Misc.CurrentColor : SharpDX.Color.Red,
                     SpellManager.R.Range, 3F, Player.Instance.Position);
         }
 
@@ -101,7 +98,7 @@ namespace JokerFioraBuddy
                 SpellSlot.R, SpellSlot.Q, SpellSlot.E, SpellSlot.Q, SpellSlot.E, SpellSlot.R, SpellSlot.E, SpellSlot.E,
                 SpellSlot.W, SpellSlot.W, SpellSlot.R, SpellSlot.W, SpellSlot.W
             };
-            if (Config.Misc.enableLevelUP)
+            if (Config.Misc.EnableLevelUp)
                 Core.DelayAction(() => Player.LevelSpell(levels[Player.Instance.Level]), 500);
         }
 
@@ -232,7 +229,7 @@ namespace JokerFioraBuddy
                     var d = unit.Distance(Player.Instance);
                     var travelTime = d / args.SData.MissileSpeed;
                     var delay = travelTime * 1000 - SpellManager.W.CastDelay + 150;
-                    Console.WriteLine("TT: " + travelTime + " " + delay);
+                    Console.WriteLine(Resources.Program_OnProcessSpellCast_TT__ + travelTime + Resources.Program_OnProcessSpellCast__ + delay);
                     Core.DelayAction(() => CastW(castUnit), (int)delay);
                     return;
                 }

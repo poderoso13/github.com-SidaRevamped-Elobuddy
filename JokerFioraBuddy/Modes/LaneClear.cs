@@ -1,6 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using System;
 using System.Linq;
 
 using Settings = JokerFioraBuddy.Config.Modes.LaneClear;
@@ -24,7 +23,7 @@ namespace JokerFioraBuddy.Modes
                     Q.Cast(minion);
 
                 if (Settings.UseTiamatHydra)
-                    ItemManager.useHydra(minion);
+                    ItemManager.UseHydra(minion);
 
                 if (Settings.UseE && E.IsReady() && Player.Instance.ManaPercent > Settings.Mana && minion.Health <= 2 * Player.Instance.GetAutoAttackDamage(Player.Instance) && minion.IsValidTarget(E.Range))
                     E.Cast();
