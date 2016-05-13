@@ -20,7 +20,7 @@ namespace JokerFioraBuddy
                 {
                     using (var webClient = new WebClient())
                     {
-                        var rawVersion = webClient.DownloadString("https://raw.githubusercontent.com/JokerArtLoL/EloBuddyAddons/master/JokerFioraBuddy/JokerFioraBuddy/Properties/AssemblyInfo.cs");
+                        var rawVersion = webClient.DownloadString("https://raw.githubusercontent.com/SidaRevamped/Elobuddy/master/JokerFioraBuddy/Properties/AssemblyInfo.cs");
                         var match = new Regex(@"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]").Match(rawVersion);
 
                         if (match.Success)
