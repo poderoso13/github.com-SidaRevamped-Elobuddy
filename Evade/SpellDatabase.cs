@@ -1,29 +1,9 @@
-// Copyright 2014 - 2014 Esk0r
-// SpellDatabase.cs is part of Evade.
-// 
-// Evade is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Evade is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Evade. If not, see <http://www.gnu.org/licenses/>.
-
-#region
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
 
-#endregion
-
-namespace Evade
+namespace JokerFioraBuddy.Evade
 {
     public static class SpellDatabase
     {
@@ -32,31 +12,6 @@ namespace Evade
         static SpellDatabase()
         {
             //Add spells to the database 
-
-            #region Test
-
-            if (Config.TestOnAllies)
-            {
-                Spells.Add(
-                    new SpellData
-                    {
-                        ChampionName = ObjectManager.Player.ChampionName,
-                        SpellName = "TestSkillShot",
-                        Slot = SpellSlot.R,
-                        Type = SkillShotType.SkillshotCircle,
-                        Delay = 600,
-                        Range = 650,
-                        Radius = 350,
-                        MissileSpeed = int.MaxValue,
-                        FixedRange = false,
-                        AddHitbox = true,
-                        DangerValue = 5,
-                        IsDangerous = true,
-                        MissileSpellName = "TestSkillShot",
-                    });
-            }
-
-            #endregion Test
 
             #region Aatrox
             Spells.Add(
@@ -95,7 +50,7 @@ namespace Evade
                     MissileSpellName = "AatroxEConeMissile",
                 });
 
-#endregion Aatrox
+            #endregion Aatrox
 
             #region Ahri
 
@@ -4260,7 +4215,8 @@ namespace Evade
                 });
 
             #endregion Zyra
-            //Console.WriteLine("Added " + Spells.Count + " spells.");
+
+            //Game.PrintChat("Added " + Spells.Count + " spells.");
         }
 
         public static SpellData GetByName(string spellName)
