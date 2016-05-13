@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
 
-namespace JokerFioraBuddy.Evade
+namespace Evade
 {
     public static class SpellDatabase
     {
