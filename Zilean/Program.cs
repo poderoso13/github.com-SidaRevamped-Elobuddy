@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -202,7 +202,7 @@ namespace Zilean
             {
                 var UltValid = ValidUlt(hero);
                 double dmg = GetIncomingDamage(hero, 1);
-                if (UltValid && (hero.Health - dmg < hero.Level * 15 || GetHealthPrediction(hero,5000,0) <= GetIncomingDamage(hero, 5)))
+                if (UltValid && (hero.Health - dmg < hero.Level * 15 || hero.Health <= GetIncomingDamage(hero, 5)))
                 {
                     R.Cast(hero);
                 }
