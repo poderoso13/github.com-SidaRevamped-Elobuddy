@@ -1,0 +1,15 @@
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Loader.exe.config
+C:\Users\samuel\Desktop\Oktw\Loader\obj\Debug\Loader.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Loader.exe
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Loader.pdb
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Berb.Common.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\EloBuddy.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\EloBuddy.Sandbox.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\EloBuddy.SDK.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Newtonsoft.Json.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\SharpDX.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\SharpDX.XInput.dll
+C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Berb.Common.pdb
+C:\Users\samuel\Desktop\Oktw\Loader\obj\Debug\Loader.exe
+C:\Users\samuel\Desktop\Oktw\Loader\obj\Debug\Loader.pdb
