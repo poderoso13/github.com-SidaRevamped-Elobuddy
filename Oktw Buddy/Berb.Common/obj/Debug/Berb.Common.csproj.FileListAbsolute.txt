@@ -1,0 +1,14 @@
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\Berb.Common.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\Berb.Common.pdb
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\EloBuddy.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\EloBuddy.Sandbox.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\EloBuddy.SDK.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\Newtonsoft.Json.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\SharpDX.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\bin\Debug\SharpDX.XInput.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\obj\Debug\Berb.Common.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Desktop\Oktw\Berb.Common\obj\Debug\Berb.Common.Properties.Resources.resources
+C:\Users\samuel\Desktop\Oktw\Berb.Common\obj\Debug\Berb.Common.csproj.GenerateResource.Cache
+C:\Users\samuel\Desktop\Oktw\Berb.Common\obj\Debug\Berb.Common.dll
+C:\Users\samuel\Desktop\Oktw\Berb.Common\obj\Debug\Berb.Common.pdb
