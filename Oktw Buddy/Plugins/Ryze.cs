@@ -201,10 +201,6 @@ namespace Loader
                 {
                     E.CastOnUnit(target);
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
-                {
-                    W.CastOnUnit(target);
-                }
             }
             if (stacks == 4)
             {
