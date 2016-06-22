@@ -13,11 +13,6 @@ C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\SharpDX.XInput.dll
 C:\Users\samuel\Desktop\Oktw\Loader\bin\Debug\Berb.Common.pdb
 C:\Users\samuel\Desktop\Oktw\Loader\obj\Debug\Loader.exe
 C:\Users\samuel\Desktop\Oktw\Loader\obj\Debug\Loader.pdb
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Loader.exe.config
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Debug\Loader.exe
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Debug\Loader.pdb
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Loader.exe
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Loader.pdb
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Berb.Common.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\EloBuddy.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\EloBuddy.Sandbox.dll
@@ -28,3 +23,8 @@ C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\SharpDX.dl
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\SharpDX.XInput.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Berb.Common.pdb
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Debug\Loader.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Oktw Buddy.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Debug\Oktw Buddy.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Debug\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Debug\Oktw Buddy.pdb
