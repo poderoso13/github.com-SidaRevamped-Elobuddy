@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using SharpDX;
+using EloBuddy;
 
 #endregion
 
@@ -197,7 +198,7 @@ namespace LeagueSharp.Common
         /// <summary>
         /// The unit that the prediction will made for.
         /// </summary>
-        public EloBuddy.Obj_AI_Base Unit = EloBuddy.ObjectManager.Player;
+        public Obj_AI_Base Unit = ObjectManager.Player;
 
         /// <summary>
         /// Set to true to increase the prediction radius by the unit bounding radius.
@@ -210,7 +211,7 @@ namespace LeagueSharp.Common
         /// <value>From.</value>
         public Vector3 From
         {
-            get { return _from.LSTo2D().IsValid() ? _from : EloBuddy.ObjectManager.Player.ServerPosition; }
+            get { return _from.LSTo2D().IsValid() ? _from : ObjectManager.Player.ServerPosition; }
             set { _from = value; }
         }
 
@@ -224,7 +225,7 @@ namespace LeagueSharp.Common
             {
                 return _rangeCheckFrom.LSTo2D().IsValid()
                     ? _rangeCheckFrom
-                    : (From.LSTo2D().IsValid() ? From : EloBuddy.ObjectManager.Player.ServerPosition);
+                    : (From.LSTo2D().IsValid() ? From : ObjectManager.Player.ServerPosition);
             }
             set { _rangeCheckFrom = value; }
         }
@@ -262,12 +263,12 @@ namespace LeagueSharp.Common
         /// <summary>
         /// The list of the targets that the spell will hit (only if aoe was enabled).
         /// </summary>
-        public List<EloBuddy.AIHeroClient> AoeTargetsHit = new List<EloBuddy.AIHeroClient>();
+        public List<AIHeroClient> AoeTargetsHit = new List<AIHeroClient>();
 
         /// <summary>
         /// The list of the units that the skillshot will collide with.
         /// </summary>
-        public List<EloBuddy.Obj_AI_Base> CollisionObjects = new List<EloBuddy.Obj_AI_Base>();
+        public List<Obj_AI_Base> CollisionObjects = new List<Obj_AI_Base>();
 
         /// <summary>
         /// Returns the hitchance.
@@ -319,6 +320,26 @@ namespace LeagueSharp.Common
     /// </summary>
     public static class Prediction
     {
+        //private static Menu _menu;
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public static void Initialize()
+        {
+            CustomEvents.Game.OnGameLoad += eventArgs =>
+            {
+                //_menu = new Menu("Prediction", "Prediction");
+                //var slider = new MenuItem("PredMaxRange", "Max Range %").SetValue(new Slider(100, 70, 100));
+                //_menu.AddItem(slider);
+                //CommonMenu.Instance.AddSubMenu(_menu);
+            };
+        }
+
+        public static void Shutdown()
+        {
+            //Menu.Remove(_menu);
+        }
 
         /// <summary>
         /// Gets the prediction.
@@ -326,7 +347,7 @@ namespace LeagueSharp.Common
         /// <param name="unit">The unit.</param>
         /// <param name="delay">The delay.</param>
         /// <returns>PredictionOutput.</returns>
-        public static PredictionOutput GetPrediction(EloBuddy.Obj_AI_Base unit, float delay)
+        public static PredictionOutput GetPrediction(Obj_AI_Base unit, float delay)
         {
             return GetPrediction(new PredictionInput { Unit = unit, Delay = delay });
         }
@@ -338,7 +359,7 @@ namespace LeagueSharp.Common
         /// <param name="delay">The delay.</param>
         /// <param name="radius">The radius.</param>
         /// <returns>PredictionOutput.</returns>
-        public static PredictionOutput GetPrediction(EloBuddy.Obj_AI_Base unit, float delay, float radius)
+        public static PredictionOutput GetPrediction(Obj_AI_Base unit, float delay, float radius)
         {
             return GetPrediction(new PredictionInput { Unit = unit, Delay = delay, Radius = radius });
         }
@@ -351,7 +372,7 @@ namespace LeagueSharp.Common
         /// <param name="radius">The radius.</param>
         /// <param name="speed">The speed.</param>
         /// <returns>PredictionOutput.</returns>
-        public static PredictionOutput GetPrediction(EloBuddy.Obj_AI_Base unit, float delay, float radius, float speed)
+        public static PredictionOutput GetPrediction(Obj_AI_Base unit, float delay, float radius, float speed)
         {
             return GetPrediction(new PredictionInput { Unit = unit, Delay = delay, Radius = radius, Speed = speed });
         }
@@ -365,7 +386,7 @@ namespace LeagueSharp.Common
         /// <param name="speed">The speed.</param>
         /// <param name="collisionable">The collisionable objects.</param>
         /// <returns>PredictionOutput.</returns>
-        public static PredictionOutput GetPrediction(EloBuddy.Obj_AI_Base unit,
+        public static PredictionOutput GetPrediction(Obj_AI_Base unit,
             float delay,
             float radius,
             float speed,
@@ -412,7 +433,7 @@ namespace LeagueSharp.Common
             if (ft)
             {
                 //Increase the delay due to the latency and server tick:
-                input.Delay += EloBuddy.Game.Ping / 2000f + 0.06f;
+                input.Delay += Game.Ping / 2000f + 0.06f;
 
                 if (input.Aoe)
                 {
@@ -439,6 +460,10 @@ namespace LeagueSharp.Common
                 if (remainingImmobileT >= 0d)
                 {
                     result = GetImmobilePrediction(input, remainingImmobileT);
+                }
+                else
+                {
+                    input.Range = input.Range * 100 / 100f;
                 }
             }
 
@@ -589,7 +614,7 @@ namespace LeagueSharp.Common
 
             var result = GetPositionOnPath(input, input.Unit.GetWaypoints(), speed);
 
-            if (result.Hitchance >= HitChance.High && input.Unit is EloBuddy.AIHeroClient) { }
+            if (result.Hitchance >= HitChance.High && input.Unit is AIHeroClient) { }
 
             return result;
         }
@@ -599,16 +624,16 @@ namespace LeagueSharp.Common
         /// </summary>
         /// <param name="unit">The unit.</param>
         /// <returns>System.Double.</returns>
-        internal static double UnitIsImmobileUntil(EloBuddy.Obj_AI_Base unit)
+        internal static double UnitIsImmobileUntil(Obj_AI_Base unit)
         {
             var result =
                 unit.Buffs.Where(
                     buff =>
-                        buff.IsActive && EloBuddy.Game.Time <= buff.EndTime &&
-                        (buff.Type == EloBuddy.BuffType.Charm || buff.Type == EloBuddy.BuffType.Knockup || buff.Type == EloBuddy.BuffType.Stun ||
-                         buff.Type == EloBuddy.BuffType.Suppression || buff.Type == EloBuddy.BuffType.Snare))
+                        buff.IsActive && Game.Time <= buff.EndTime &&
+                        (buff.Type == BuffType.Charm || buff.Type == BuffType.Knockup || buff.Type == BuffType.Stun ||
+                         buff.Type == BuffType.Suppression || buff.Type == BuffType.Snare))
                     .Aggregate(0d, (current, buff) => Math.Max(current, buff.EndTime));
-            return (result - EloBuddy.Game.Time);
+            return (result - Game.Time);
         }
 
         /// <summary>
@@ -823,7 +848,7 @@ namespace LeagueSharp.Common
                     {
                         return new PredictionOutput
                         {
-                            AoeTargetsHit = posibleTargets.Select(h => (EloBuddy.AIHeroClient)h.Unit).ToList(),
+                            AoeTargetsHit = posibleTargets.Select(h => (AIHeroClient)h.Unit).ToList(),
                             CastPosition = mecCircle.Center.To3D(),
                             UnitPosition = mainTargetPrediction.UnitPosition,
                             Hitchance = mainTargetPrediction.Hitchance,
@@ -1099,7 +1124,7 @@ namespace LeagueSharp.Common
             /// <summary>
             /// The unit
             /// </summary>
-            public EloBuddy.Obj_AI_Base Unit;
+            public Obj_AI_Base Unit;
         }
     }
 
@@ -1123,7 +1148,7 @@ namespace LeagueSharp.Common
         /// </summary>
         static Collision()
         {
-            EloBuddy.Obj_AI_Base.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
+            Obj_AI_Base.OnProcessSpellCast += AIHeroClient_OnProcessSpellCast;
         }
 
         /// <summary>
@@ -1131,9 +1156,9 @@ namespace LeagueSharp.Common
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="GameObjectProcessSpellCastEventArgs"/> instance containing the event data.</param>
-        private static void Obj_AI_Hero_OnProcessSpellCast(EloBuddy.Obj_AI_Base sender, EloBuddy.GameObjectProcessSpellCastEventArgs args)
+        private static void AIHeroClient_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (sender.IsValid && sender.Team != EloBuddy.ObjectManager.Player.Team && args.SData.Name == "YasuoWMovingWall")
+            if (sender.IsValid && sender.Team != ObjectManager.Player.Team && args.SData.Name == "YasuoWMovingWall")
             {
                 _wallCastT = Utils.TickCount;
                 _yasuoWallCastedPos = sender.ServerPosition.LSTo2D();
@@ -1146,9 +1171,9 @@ namespace LeagueSharp.Common
         /// <param name="positions">The positions.</param>
         /// <param name="input">The input.</param>
         /// <returns>List&lt;Obj_AI_Base&gt;.</returns>
-        public static List<EloBuddy.Obj_AI_Base> GetCollision(List<Vector3> positions, PredictionInput input)
+        public static List<Obj_AI_Base> GetCollision(List<Vector3> positions, PredictionInput input)
         {
-            var result = new List<EloBuddy.Obj_AI_Base>();
+            var result = new List<Obj_AI_Base>();
 
             foreach (var position in positions)
             {
@@ -1158,7 +1183,7 @@ namespace LeagueSharp.Common
                     {
                         case CollisionableObjects.Minions:
                             foreach (var minion in
-                                EloBuddy.ObjectManager.Get<EloBuddy.Obj_AI_Minion>()
+                                ObjectManager.Get<Obj_AI_Minion>()
                                     .Where(
                                         minion =>
                                             minion.LSIsValidTarget(
@@ -1200,7 +1225,7 @@ namespace LeagueSharp.Common
                             foreach (var hero in
                                 HeroManager.Allies.FindAll(
                                     hero =>
-                                       Vector3.Distance(EloBuddy.ObjectManager.Player.ServerPosition, hero.ServerPosition) <= Math.Min(input.Range + input.Radius + 100, 2000))
+                                       Vector3.Distance(ObjectManager.Player.ServerPosition, hero.ServerPosition) <= Math.Min(input.Range + input.Radius + 100, 2000))
                                 )
                             {
                                 input.Unit = hero;
@@ -1221,9 +1246,9 @@ namespace LeagueSharp.Common
                             for (var i = 0; i < 20; i++)
                             {
                                 var p = input.From.LSTo2D().LSExtend(position.LSTo2D(), step * i);
-                                if (EloBuddy.NavMesh.GetCollisionFlags(p.X, p.Y).HasFlag(EloBuddy.CollisionFlags.Wall))
+                                if (NavMesh.GetCollisionFlags(p.X, p.Y).HasFlag(CollisionFlags.Wall))
                                 {
-                                    result.Add(EloBuddy.ObjectManager.Player);
+                                    result.Add(ObjectManager.Player);
                                 }
                             }
                             break;
@@ -1235,9 +1260,9 @@ namespace LeagueSharp.Common
                                 break;
                             }
 
-                            EloBuddy.GameObject wall = null;
+                            GameObject wall = null;
                             foreach (var gameObject in
-                                EloBuddy.ObjectManager.Get<EloBuddy.GameObject>()
+                                ObjectManager.Get<GameObject>()
                                     .Where(
                                         gameObject =>
                                             gameObject.IsValid &&
@@ -1266,7 +1291,7 @@ namespace LeagueSharp.Common
                                             .Point.LSDistance(input.From) / input.Speed + input.Delay) * 1000;
                                 if (t < _wallCastT + 4000)
                                 {
-                                    result.Add(EloBuddy.ObjectManager.Player);
+                                    result.Add(ObjectManager.Player);
                                 }
                             }
 
@@ -1351,7 +1376,7 @@ namespace LeagueSharp.Common
         /// </summary>
         static PathTracker()
         {
-            EloBuddy.Obj_AI_Base.OnNewPath += Obj_AI_Hero_OnNewPath;
+            Obj_AI_Base.OnNewPath += AIHeroClient_OnNewPath;
         }
 
         /// <summary>
@@ -1359,9 +1384,9 @@ namespace LeagueSharp.Common
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="GameObjectNewPathEventArgs"/> instance containing the event data.</param>
-        private static void Obj_AI_Hero_OnNewPath(EloBuddy.Obj_AI_Base sender, EloBuddy.GameObjectNewPathEventArgs args)
+        private static void AIHeroClient_OnNewPath(Obj_AI_Base sender, GameObjectNewPathEventArgs args)
         {
-            if (!(sender is EloBuddy.AIHeroClient))
+            if (!(sender is AIHeroClient))
             {
                 return;
             }
@@ -1386,7 +1411,7 @@ namespace LeagueSharp.Common
         /// <param name="unit">The unit.</param>
         /// <param name="maxT">The maximum t.</param>
         /// <returns>List&lt;StoredPath&gt;.</returns>
-        public static List<StoredPath> GetStoredPaths(EloBuddy.Obj_AI_Base unit, double maxT)
+        public static List<StoredPath> GetStoredPaths(Obj_AI_Base unit, double maxT)
         {
             return StoredPaths.ContainsKey(unit.NetworkId)
                 ? StoredPaths[unit.NetworkId].Where(p => p.Time < maxT).ToList()
@@ -1398,7 +1423,7 @@ namespace LeagueSharp.Common
         /// </summary>
         /// <param name="unit">The unit.</param>
         /// <returns>StoredPath.</returns>
-        public static StoredPath GetCurrentPath(EloBuddy.Obj_AI_Base unit)
+        public static StoredPath GetCurrentPath(Obj_AI_Base unit)
         {
             return StoredPaths.ContainsKey(unit.NetworkId)
                 ? StoredPaths[unit.NetworkId].LastOrDefault()
@@ -1410,7 +1435,7 @@ namespace LeagueSharp.Common
         /// </summary>
         /// <param name="unit">The unit.</param>
         /// <returns>Vector3.</returns>
-        public static Vector3 GetTendency(EloBuddy.Obj_AI_Base unit)
+        public static Vector3 GetTendency(Obj_AI_Base unit)
         {
             var paths = GetStoredPaths(unit, MaxTime);
             var result = new Vector2();
@@ -1432,7 +1457,7 @@ namespace LeagueSharp.Common
         /// <param name="unit">The unit.</param>
         /// <param name="maxT">The maximum t.</param>
         /// <returns>System.Double.</returns>
-        public static double GetMeanSpeed(EloBuddy.Obj_AI_Base unit, double maxT)
+        public static double GetMeanSpeed(Obj_AI_Base unit, double maxT)
         {
             var paths = GetStoredPaths(unit, MaxTime);
             var distance = 0d;
