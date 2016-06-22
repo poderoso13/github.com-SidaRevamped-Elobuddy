@@ -250,9 +250,9 @@ namespace Loader
             }
             if (!LeagueSharp.Common.Utility.IsReady(E))
             {
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR)
+                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR && Q.GetPrediction(target).CollisionObjects.Any(c => c.IsMinion))
                 {
-                    Q.Cast(Q.GetPrediction(target).UnitPosition);
+                    Q.Cast(Q.GetPrediction(target).CastPosition);
                 }
                 if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellHR)
                 {
@@ -269,9 +269,9 @@ namespace Loader
                 {
                     W.CastOnUnit(target);
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR)
+                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR && Q.GetPrediction(target).CollisionObjects.Any(c => c.IsMinion))
                 {
-                    Q.Cast(Q.GetPrediction(target).UnitPosition);
+                    Q.Cast(Q.GetPrediction(target).CastPosition);
                 }
             }
         }
