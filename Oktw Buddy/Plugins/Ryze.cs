@@ -223,6 +223,13 @@ namespace Loader
             }
             if (LeagueSharp.SDK.GameObjects.Player.HasBuff("RyzePassiveCharged"))
             {
+                if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
+                {
+                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && !LeagueSharp.Common.Utility.IsReady(W))
+                    {
+                        R.Cast();
+                    }
+                }
                 if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
                 {
                     W.CastOnUnit(target);
