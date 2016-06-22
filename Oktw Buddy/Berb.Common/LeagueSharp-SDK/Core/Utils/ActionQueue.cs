@@ -4,9 +4,9 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Reflection;
-    using EloBuddy; using Enumerations;
-    using LeagueSharp.SDK;
+    using EloBuddy;
     using Enumerations;
+    using LeagueSharp.SDK;
     /// <summary>
     ///     Queues actions.
     /// </summary>

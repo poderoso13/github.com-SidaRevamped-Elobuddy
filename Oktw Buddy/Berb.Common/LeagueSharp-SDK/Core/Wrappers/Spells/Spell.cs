@@ -20,16 +20,12 @@ namespace LeagueSharp.SDK
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using EloBuddy.SDK.Enumerations;
-    using EloBuddy.SDK.Events;
-    using EloBuddy.SDK.Menu.Values;
-    using EloBuddy.SDK.Menu;
-    using EloBuddy; using Enumerations;
+    using EloBuddy;
+    using Enumerations;
     using SharpDX;
     using EloBuddy.SDK;
 
     using LeagueSharp.Data.Enumerations;
-    using LeagueSharp.SDK.Enumerations;
     using LeagueSharp.SDK.Core.Utils;
 
     /// <summary>

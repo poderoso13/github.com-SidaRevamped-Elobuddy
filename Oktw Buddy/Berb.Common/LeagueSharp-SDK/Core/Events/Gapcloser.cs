@@ -21,15 +21,9 @@ namespace LeagueSharp.SDK
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using EloBuddy.SDK.Enumerations;
-    using EloBuddy.SDK.Events;
-    using EloBuddy.SDK.Menu.Values;
-    using EloBuddy.SDK.Menu;
     using EloBuddy.SDK;
-    using EloBuddy; using Enumerations;
-    using LeagueSharp.SDK.Core.Utils;
+    using EloBuddy;
     using SharpDX;
-    using LeagueSharp.SDK.Enumerations;
     using Data.Enumerations;
     /// <summary>
     ///     Detection of Gap-closers and fires the OnGapCloser event.

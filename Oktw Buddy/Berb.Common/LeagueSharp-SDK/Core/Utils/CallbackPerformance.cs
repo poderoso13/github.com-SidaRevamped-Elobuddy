@@ -20,8 +20,6 @@ namespace LeagueSharp.SDK.Core.Utils
     using System;
     using System.Diagnostics;
     using System.Runtime.CompilerServices;
-    using EloBuddy; using Enumerations;
-    using LeagueSharp.SDK;
     using Enumerations;
     /// <summary>
     ///     Performance class, measures how much time does a function takes to execute.

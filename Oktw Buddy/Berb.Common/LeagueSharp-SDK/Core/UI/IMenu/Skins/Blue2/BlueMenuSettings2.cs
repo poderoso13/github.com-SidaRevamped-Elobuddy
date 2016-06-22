@@ -54,14 +54,14 @@ namespace LeagueSharp.SDK.Core.UI.IMenu.Skins.Blue2
         /// <summary>
         ///     Gets or sets the Global Container Selected Color.
         /// </summary>
-        public static ColorBGRA ContainerSelectedColor { get; set; }
+        public static new ColorBGRA ContainerSelectedColor { get; set; }
 
         #region Public Methods and Operators
 
         /// <summary>
         ///     Used to load the menu settings.
         /// </summary>
-        public static void LoadSettings()
+        public static new void LoadSettings()
         {
             BlueMenuSettings.LoadSettings();
         }

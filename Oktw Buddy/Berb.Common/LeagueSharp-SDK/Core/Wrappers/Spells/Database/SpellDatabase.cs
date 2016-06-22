@@ -20,16 +20,10 @@ namespace LeagueSharp.SDK
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using EloBuddy.SDK.Enumerations;
-    using EloBuddy.SDK.Events;
-    using EloBuddy.SDK.Menu.Values;
-    using EloBuddy.SDK.Menu;
-    using EloBuddy.SDK;
-    using EloBuddy; using Enumerations;
-    using LeagueSharp.Data.Enumerations;
-    using LeagueSharp.SDK;
-    using LeagueSharp.SDK.Core.Utils;
-    using LeagueSharp.SDK.Enumerations;
+    using EloBuddy;
+    using Enumerations;
+    using Data.Enumerations;
+    using Core.Utils;
     using Data.DataTypes;
     /// <summary>
     ///     The spell database.

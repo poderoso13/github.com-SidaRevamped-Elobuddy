@@ -260,14 +260,14 @@ namespace LeagueSharp.SDK.Core.UI.IMenu.Skins.Light2
         /// </summary>
         /// <param name="component">The <see cref="MenuList" /></param>
         /// <returns>The <see cref="Rectangle" /></returns>
-        public Rectangle DropDownBoundaries(MenuList component)
+        public new Rectangle DropDownBoundaries(MenuList component)
         {
             return
                 new Rectangle(
                     (int)
                     (component.Position.X + component.MenuWidth - this.dropDownButtonWidth - (2 * TextSpacing)
-                     - component.MaxStringWidth), 
-                    (int)component.Position.Y, 
+                     - component.MaxStringWidth),
+                    (int)component.Position.Y,
                     this.dropDownButtonWidth + (2 * TextSpacing) + component.MaxStringWidth,
                     MenuSettings.ContainerHeight);
         }
@@ -277,15 +277,15 @@ namespace LeagueSharp.SDK.Core.UI.IMenu.Skins.Light2
         /// </summary>
         /// <param name="component">The <see cref="MenuList" /></param>
         /// <returns>The <see cref="Rectangle" /></returns>
-        public Rectangle DropDownExpandedBoundaries(MenuList component)
+        public new Rectangle DropDownExpandedBoundaries(MenuList component)
         {
             return
                 new Rectangle(
                     (int)
                     (component.Position.X + component.MenuWidth - this.dropDownButtonWidth - (2 * TextSpacing)
-                     - component.MaxStringWidth), 
-                    (int)component.Position.Y, 
-                    this.dropDownButtonWidth + (2 * TextSpacing) + component.MaxStringWidth, 
+                     - component.MaxStringWidth),
+                    (int)component.Position.Y,
+                    this.dropDownButtonWidth + (2 * TextSpacing) + component.MaxStringWidth,
                     (component.Count + 1) * MenuSettings.ContainerHeight);
         }
 
@@ -294,7 +294,7 @@ namespace LeagueSharp.SDK.Core.UI.IMenu.Skins.Light2
         /// </summary>
         /// <param name="component">The <see cref="MenuList" /></param>
         /// <returns>List of <see cref="Rectangle" /></returns>
-        public List<Rectangle> DropDownListBoundaries(MenuList component)
+        public new List<Rectangle> DropDownListBoundaries(MenuList component)
         {
             var rectangles = new List<Rectangle>();
             for (var i = 0; i < component.Count; i++)
@@ -303,8 +303,8 @@ namespace LeagueSharp.SDK.Core.UI.IMenu.Skins.Light2
                     new Rectangle(
                         (int)
                         (component.Position.X + component.MenuWidth - this.dropDownButtonWidth - (2 * TextSpacing)
-                         - component.MaxStringWidth), 
-                        (int)(component.Position.Y + ((i + 1) * MenuSettings.ContainerHeight)), 
+                         - component.MaxStringWidth),
+                        (int)(component.Position.Y + ((i + 1) * MenuSettings.ContainerHeight)),
                         this.dropDownButtonWidth + (2 * TextSpacing) + component.MaxStringWidth,
                         MenuSettings.ContainerHeight + 1));
             }

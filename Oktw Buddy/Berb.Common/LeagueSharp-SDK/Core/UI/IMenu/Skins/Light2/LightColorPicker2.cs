@@ -136,17 +136,17 @@ namespace LeagueSharp.SDK.Core.UI.IMenu.Skins.Light2
         /// <summary>
         ///     The ColorBox to display the color spectrum.
         /// </summary>
-        protected ColorBox colorBox;
+        protected new ColorBox colorBox;
 
         /// <summary>
         ///     The VerticalAlphaSlider to change the opacity.
         /// </summary>
-        protected VerticalAlphaSlider verticalAlphaSlider;
+        protected new VerticalAlphaSlider verticalAlphaSlider;
 
         /// <summary>
         ///     The VerticalColorSlider to change the color spectrum.
         /// </summary>
-        protected VerticalColorSlider verticalColorSlider;
+        protected new VerticalColorSlider verticalColorSlider;
 
         #endregion
 

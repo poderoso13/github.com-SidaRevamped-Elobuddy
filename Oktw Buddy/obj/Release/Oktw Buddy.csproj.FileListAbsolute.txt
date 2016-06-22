@@ -1,0 +1,30 @@
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Release\OktwBuddy.Berb.Common.Properties.Resources.resources
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Release\Oktw Buddy.csproj.GenerateResource.Cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\Oktw Buddy.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\Oktw Buddy.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\EloBuddy.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\EloBuddy.SDK.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\Newtonsoft.Json.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\SharpDX.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\bin\Release\SharpDX.XInput.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Release\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Release\Oktw Buddy.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\Loader\obj\Release\Oktw Buddy.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Oktw Buddy.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Oktw Buddy.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\EloBuddy.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\EloBuddy.SDK.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Newtonsoft.Json.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\SharpDX.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\SharpDX.XInput.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\Oktw Buddy.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\OktwBuddy.Berb.Common.Properties.Resources.resources
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\Oktw Buddy.csproj.GenerateResource.Cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\Oktw Buddy.pdb

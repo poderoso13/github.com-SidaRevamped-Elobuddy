@@ -278,7 +278,7 @@ namespace Core
                         }
                         if (Player.Instance.Spellbook.CastSpell(Slot, endPos, startPos))
                         {
-                            LastCastSpellAttempt = Core.GameTickCount;
+                            LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
                         }
                     }
                 }
@@ -304,7 +304,7 @@ namespace Core
                     }
                     if (Player.Instance.Spellbook.CastSpell(Slot, pred.CastPosition))
                     {
-                        LastCastSpellAttempt = Core.GameTickCount;
+                        LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
                     }
                 }
             }
@@ -316,7 +316,7 @@ namespace Core
                 }
                 if (Player.Instance.Spellbook.CastSpell(Slot, target))
                 {
-                    LastCastSpellAttempt = Core.GameTickCount;
+                    LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
                 }
             }
             else if (Type == SpellType.Self)
@@ -330,7 +330,7 @@ namespace Core
                     }
                     if (Player.Instance.Spellbook.CastSpell(Slot))
                     {
-                        LastCastSpellAttempt = Core.GameTickCount;
+                        LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
                     }
                 }
             }
@@ -347,7 +347,7 @@ namespace Core
                 }
                 if (Player.Instance.Spellbook.CastSpell(Slot, Game.CursorPos))
                 {
-                    LastCastSpellAttempt = Core.GameTickCount;
+                    LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
                 }
             }
         }
@@ -371,7 +371,7 @@ namespace Core
                         }
                         if (Player.Instance.Spellbook.UpdateChargeableSpell(Slot, pred.CastPosition, true))
                         {
-                            LastCastSpellAttempt = Core.GameTickCount;
+                            LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
                         }
                     }
                 }
@@ -385,7 +385,7 @@ namespace Core
             }
             if (Player.Instance.Spellbook.CastSpell(Slot, position))
             {
-                LastCastSpellAttempt = Core.GameTickCount;
+                LastCastSpellAttempt = EloBuddy.SDK.Core.GameTickCount;
             }
         }
 

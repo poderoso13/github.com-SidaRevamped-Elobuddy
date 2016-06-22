@@ -20,12 +20,8 @@ namespace LeagueSharp.SDK
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using EloBuddy.SDK.Enumerations;
-    using EloBuddy.SDK.Events;
-    using EloBuddy.SDK.Menu.Values;
-    using EloBuddy.SDK.Menu;
-    using EloBuddy.SDK;
-    using EloBuddy; using Enumerations;
+    using EloBuddy;
+    using Enumerations;
     using LeagueSharp.SDK.Core.Utils;
     using PortAIO.Properties;
 
@@ -34,7 +30,6 @@ namespace LeagueSharp.SDK
 
     using Color = SharpDX.Color;
     using Font = SharpDX.Direct3D9.Font;
-    using Enumerations;
     /// <summary>
     ///     The notification.
     /// </summary>

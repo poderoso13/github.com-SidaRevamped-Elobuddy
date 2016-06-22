@@ -21,11 +21,12 @@ namespace LeagueSharp.SDK
     using System.Collections.Generic;
     using System.Linq;
 
-    using EloBuddy; using Enumerations;
+    using EloBuddy;
+    using Enumerations;
     using Core.Utils;
-    using Enumerations;/// <summary>
-                       ///     Health Prediction class for prediction of health of units.
-                       /// </summary>
+    /// <summary>
+    ///     Health Prediction class for prediction of health of units.
+    /// </summary>
     public class Health
     {
         #region Static Fields
