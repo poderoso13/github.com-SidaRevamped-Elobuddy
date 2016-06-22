@@ -17,9 +17,9 @@ namespace Loader
         static bool WSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.W"); } }
         static bool ESpellCB { get { return getCheckBoxItem(comboMenu, "Combo.E"); } }
         static bool RSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.R"); } }
-        static bool QSpellHR { get { return getCheckBoxItem(comboMenu, "Harass.Q"); } }
-        static bool WSpellHR { get { return getCheckBoxItem(comboMenu, "Harass.W"); } }
-        static bool ESpellHR { get { return getCheckBoxItem(comboMenu, "Harass.E"); } }
+        static bool QSpellHR { get { return getCheckBoxItem(harassMenu, "Harass.Q"); } }
+        static bool WSpellHR { get { return getCheckBoxItem(harassMenu, "Harass.W"); } }
+        static bool ESpellHR { get { return getCheckBoxItem(harassMenu, "Harass.E"); } }
         public static void RyzeLoading()
         {
             SetSpells();
@@ -50,7 +50,7 @@ namespace Loader
             clearMenu.Add("Clear.Q", new CheckBox("Use Q"));
             clearMenu.Add("Clear.W", new CheckBox("Use W"));
             clearMenu.Add("Clear.E", new CheckBox("Use E"));
-            clearMenu.Add("Clear.E", new CheckBox("Use R"));
+            clearMenu.Add("Clear.R", new CheckBox("Use R"));
             miscMenu = Menu.AddSubMenu("Misc", "Misc");
             miscMenu.Add("Misc.Items", new CheckBox("items"));
             miscMenu.Add("Misc.Summs", new CheckBox("Summoner Spells"));
