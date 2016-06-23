@@ -23,6 +23,7 @@ C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\bin\Release\Newtonsoft.J
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\bin\Release\SharpDX.Direct3D9.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\bin\Release\SharpDX.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\bin\Release\SharpDX.XInput.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\ObviousOp AIo.csprojResolveAssemblyReference.cache
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\OktwBuddy.Common.Properties.Resources.resources
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\ObviousOp AIo.csproj.GenerateResource.Cache
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\Oktw Buddy.exe
