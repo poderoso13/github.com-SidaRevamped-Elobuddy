@@ -11,7 +11,7 @@ namespace Loader
     class Ryze
     {
         static Menu Menu;
-        static Menu comboMenu, harassMenu, clearMenu, miscMenu;
+        static Menu comboMenu, harassMenu, clearMenu;
         static LeagueSharp.Common.Spell Q, W, E, R;
         static bool QSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.Q"); } }
         static bool WSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.W"); } }
@@ -59,9 +59,6 @@ namespace Loader
             clearMenu.Add("Clear.E", new CheckBox("Use E"));
             clearMenu.Add("Clear.R", new CheckBox("Use R"));
             clearMenu.Add("Clear.Mana", new Slider("Min Mana %",20,0,100));
-            miscMenu = Menu.AddSubMenu("Misc", "Misc");
-            miscMenu.Add("Misc.Items", new CheckBox("items"));
-            miscMenu.Add("Misc.Summs", new CheckBox("Summoner Spells"));
         }
         static bool getCheckBoxItem(Menu m, string item)
         {
