@@ -20,7 +20,13 @@ namespace Loader
         static bool QSpellHR { get { return getCheckBoxItem(harassMenu, "Harass.Q"); } }
         static bool WSpellHR { get { return getCheckBoxItem(harassMenu, "Harass.W"); } }
         static bool ESpellHR { get { return getCheckBoxItem(harassMenu, "Harass.E"); } }
-        public static void RyzeLoading()
+        static bool QSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.Q"); } }
+        static bool WSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.W"); } }
+        static bool ESpellFR { get { return getCheckBoxItem(clearMenu, "Clear.E"); } }
+        static EloBuddy.AIHeroClient Target => EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
+        static List<EloBuddy.Obj_AI_Minion> Minions =>LeagueSharp.SDK.GameObjects.EnemyMinions.Where(m =>LeagueSharp.Common.MinionManager.IsMinion(m) &&LeagueSharp.Common.Utility.LSIsValidTarget(m, Q.Range)).ToList();
+        static List<EloBuddy.Obj_AI_Minion> JungleMinions=>LeagueSharp.SDK.GameObjects.Jungle.Where(m =>LeagueSharp.Common.Utility.LSIsValidTarget(m, Q.Range) && !LeagueSharp.SDK.GameObjects.JungleSmall.Contains(m)).ToList();
+    public static void RyzeLoading()
         {
             SetSpells();
             SetMenu();
@@ -51,6 +57,7 @@ namespace Loader
             clearMenu.Add("Clear.W", new CheckBox("Use W"));
             clearMenu.Add("Clear.E", new CheckBox("Use E"));
             clearMenu.Add("Clear.R", new CheckBox("Use R"));
+            clearMenu.Add("Clear.Mana", new Slider("Min Mana %",20,0,100));
             miscMenu = Menu.AddSubMenu("Misc", "Misc");
             miscMenu.Add("Misc.Items", new CheckBox("items"));
             miscMenu.Add("Misc.Summs", new CheckBox("Summoner Spells"));
@@ -87,6 +94,10 @@ namespace Loader
             if (EloBuddy.SDK.Orbwalker.ActiveModesFlags.HasFlag(EloBuddy.SDK.Orbwalker.ActiveModes.Harass))
             {
                 Mixed();
+            }
+            if (EloBuddy.SDK.Orbwalker.ActiveModesFlags.HasFlag(EloBuddy.SDK.Orbwalker.ActiveModes.LaneClear) || EloBuddy.SDK.Orbwalker.ActiveModesFlags.HasFlag(EloBuddy.SDK.Orbwalker.ActiveModes.JungleClear))
+            {
+                Clear();
             }
         }
         static void Combo()
@@ -279,6 +290,45 @@ namespace Loader
                 if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR && Q.GetPrediction(target).CollisionObjects.Any(c => c.IsMinion) && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
                 {
                     Q.Cast(target);
+                }
+            }
+        }
+        static void Clear()
+        {
+            if (LeagueSharp.Common.Utility.IsReady(R) && LeagueSharp.Common.Utility.IsReady(E) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent)
+            {
+                if (Minions.Any())
+                {
+                    if (Minions.Count() >= 3)
+                    {
+                        R.Cast();
+                    }
+                }
+                else if (JungleMinions.Any())
+                {
+                    R.Cast();
+                }
+            }
+            if (LeagueSharp.Common.Utility.IsReady(Q) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent)
+            {
+                if (Minions.Any())
+                {
+                    Q.Cast(Minions[0].ServerPosition);
+                }
+                if (JungleMinions.Any())
+                {
+                    Q.Cast(JungleMinions[0].ServerPosition);
+                }
+            }
+            if (LeagueSharp.Common.Utility.IsReady(W) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent)
+            {
+                if (Minions.Any())
+                {
+                    W.CastOnUnit(Minions[0]);
+                }
+                if (JungleMinions.Any())
+                {
+                    W.CastOnUnit(JungleMinions[0]);
                 }
             }
         }
