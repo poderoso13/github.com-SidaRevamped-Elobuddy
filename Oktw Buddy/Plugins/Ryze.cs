@@ -23,6 +23,7 @@ namespace Loader
         static bool QSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.Q"); } }
         static bool WSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.W"); } }
         static bool ESpellFR { get { return getCheckBoxItem(clearMenu, "Clear.E"); } }
+        static bool RSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.R"); } }
         static EloBuddy.AIHeroClient Target => EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
         static List<EloBuddy.Obj_AI_Minion> Minions =>LeagueSharp.SDK.GameObjects.EnemyMinions.Where(m =>LeagueSharp.Common.MinionManager.IsMinion(m) &&LeagueSharp.Common.Utility.LSIsValidTarget(m, Q.Range)).ToList();
         static List<EloBuddy.Obj_AI_Minion> JungleMinions=>LeagueSharp.SDK.GameObjects.Jungle.Where(m =>LeagueSharp.Common.Utility.LSIsValidTarget(m, Q.Range) && !LeagueSharp.SDK.GameObjects.JungleSmall.Contains(m)).ToList();
@@ -295,7 +296,7 @@ namespace Loader
         }
         static void Clear()
         {
-            if (LeagueSharp.Common.Utility.IsReady(R) && LeagueSharp.Common.Utility.IsReady(E) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent)
+            if (LeagueSharp.Common.Utility.IsReady(R) && LeagueSharp.Common.Utility.IsReady(E) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && RSpellFR)
             {
                 if (Minions.Any())
                 {
@@ -309,7 +310,7 @@ namespace Loader
                     R.Cast();
                 }
             }
-            if (LeagueSharp.Common.Utility.IsReady(Q) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent)
+            if (LeagueSharp.Common.Utility.IsReady(Q) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && QSpellFR)
             {
                 if (Minions.Any())
                 {
@@ -320,7 +321,7 @@ namespace Loader
                     Q.Cast(JungleMinions[0].ServerPosition);
                 }
             }
-            if (LeagueSharp.Common.Utility.IsReady(W) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent)
+            if (LeagueSharp.Common.Utility.IsReady(W) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && WSpellFR)
             {
                 if (Minions.Any())
                 {
@@ -329,6 +330,17 @@ namespace Loader
                 if (JungleMinions.Any())
                 {
                     W.CastOnUnit(JungleMinions[0]);
+                }
+            }
+            if (LeagueSharp.Common.Utility.IsReady(E) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && ESpellFR)
+            {
+                if (Minions.Any())
+                {
+                    E.CastOnUnit(Minions[0]);
+                }
+                else if (JungleMinions.Any())
+                {
+                    E.CastOnUnit(JungleMinions[0]);
                 }
             }
         }
