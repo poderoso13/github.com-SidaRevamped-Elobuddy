@@ -1,3 +1,6 @@
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Oktw Buddy.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\Oktw Buddy.pdb
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\EloBuddy.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\EloBuddy.Sandbox.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\EloBuddy.SDK.dll
@@ -6,10 +9,7 @@ C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\SharpDX.Direct3
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\SharpDX.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\SharpDX.XInput.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\ObviousOp AIo.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\OktwBuddy.Common.Properties.Resources.resources
 C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\ObviousOp AIo.csproj.GenerateResource.Cache
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\ObviousOp AIo.dll.config
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\ObviousOp AIo.dll
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\bin\Release\ObviousOp AIo.pdb
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\ObviousOp.Common.Properties.Resources.resources
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\ObviousOp AIo.dll
-C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\ObviousOp AIo.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Oktw Buddy\obj\Release\Oktw Buddy.pdb
