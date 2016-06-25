@@ -12,3 +12,18 @@ C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\Ryze.Common.
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\Ryze.csproj.GenerateResource.Cache
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\Ryze.exe
 C:\Users\samuel\Documents\GitHub\Elobuddy\Op Ovious AIo\obj\Release\Ryze.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\Ryze.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\Ryze.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\Ryze.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\EloBuddy.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\EloBuddy.SDK.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\Newtonsoft.Json.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\SharpDX.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Release\SharpDX.XInput.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Release\Ryze.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Release\Ryze.Common.Properties.Resources.resources
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Release\Ryze.csproj.GenerateResource.Cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Release\Ryze.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Release\Ryze.pdb

@@ -100,7 +100,6 @@ namespace Loader
         }
         static void Combo()
         {
-            var stacks = LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack");
             var target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
             if (LeagueSharp.Common.Utility.LSCountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range) <= 2)
             {
@@ -110,7 +109,7 @@ namespace Loader
             {
                 target = EloBuddy.SDK.TargetSelector.GetTarget(W.Range, EloBuddy.DamageType.Magical);
             }
-            if (stacks == 0)
+            if (!LeagueSharp.SDK.GameObjects.Player.HasBuff("RyzePassiveStack"))
             {
                 if (!LeagueSharp.Common.Utility.IsReady(E))
                 {
@@ -139,7 +138,7 @@ namespace Loader
                     }
                 }
             }
-            if (stacks == 1)
+            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 1)
             {
                 if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
                 {
@@ -162,7 +161,7 @@ namespace Loader
                     W.CastOnUnit(target);
                 }
             }
-            if (stacks == 2)
+            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 2)
             {
                 if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
                 {
@@ -193,7 +192,7 @@ namespace Loader
                     W.CastOnUnit(target);
                 }
             }
-            if (stacks == 3)
+            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 3)
             {
                 if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
                 {
@@ -215,7 +214,7 @@ namespace Loader
                     W.CastOnUnit(target);
                 }
             }
-            if (stacks == 4)
+            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 4)
             {
                 if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
                 {
