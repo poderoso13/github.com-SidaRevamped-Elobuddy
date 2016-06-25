@@ -1,0 +1,14 @@
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\Oktw Buddy.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\Oktw Buddy.pdb
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\EloBuddy.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\EloBuddy.Sandbox.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\EloBuddy.SDK.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\Newtonsoft.Json.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\SharpDX.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\SharpDX.XInput.dll
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\OktwBuddy.Common.Properties.Resources.resources
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Ryze.csproj.GenerateResource.Cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Oktw Buddy.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Oktw Buddy.pdb
