@@ -7,8 +7,8 @@
     <ProjectGuid>{C540F3A7-7216-4178-B984-7104D1B35C27}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OktwBuddy</RootNamespace>
-    <AssemblyName>Oktw Buddy</AssemblyName>
+    <RootNamespace>Ryze</RootNamespace>
+    <AssemblyName>Ryze</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
