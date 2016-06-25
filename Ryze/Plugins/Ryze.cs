@@ -100,7 +100,7 @@ namespace Loader
         }
         static void Combo()
         {
-            var stacks = EloBuddy.Player.GetBuff("RyzePassiveStack").Count;
+            var stacks = LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack");
             var target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
             if (LeagueSharp.Common.Utility.LSCountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range) <= 2)
             {

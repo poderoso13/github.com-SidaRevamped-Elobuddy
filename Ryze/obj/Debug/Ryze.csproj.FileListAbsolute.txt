@@ -8,7 +8,6 @@ C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\Newtonsoft.Json.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\SharpDX.Direct3D9.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\SharpDX.dll
 C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\bin\Debug\SharpDX.XInput.dll
-C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Ryze.csprojResolveAssemblyReference.cache
 C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Ryze.Common.Properties.Resources.resources
 C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Ryze.csproj.GenerateResource.Cache
 C:\Users\samuel\Documents\GitHub\Elobuddy\Ryze\obj\Debug\Ryze.exe
