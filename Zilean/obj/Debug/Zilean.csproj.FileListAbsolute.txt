@@ -24,3 +24,6 @@ C:\Users\PC-3-PIA\Desktop\sam\Zilean\Zilean\bin\Debug\SharpDX.Direct3D9.dll
 C:\Users\PC-3-PIA\Desktop\sam\Zilean\Zilean\bin\Debug\SharpDX.dll
 C:\Users\PC-3-PIA\Desktop\sam\Zilean\Zilean\bin\Debug\SharpDX.XInput.dll
 C:\Users\PC-3-PIA\Desktop\sam\Zilean\Zilean\obj\Debug\Zilean.csprojResolveAssemblyReference.cache
+C:\Users\samuel\Documents\GitHub\Elobuddy\Zilean\bin\Debug\Zilean.exe.config
+C:\Users\samuel\Documents\GitHub\Elobuddy\Zilean\obj\Debug\Zilean.exe
+C:\Users\samuel\Documents\GitHub\Elobuddy\Zilean\obj\Debug\Zilean.pdb
