@@ -27,9 +27,28 @@ namespace Loader
         static bool QSpellDr { get { return getCheckBoxItem(drawMenu, "Draws.Q"); } }
         static bool WSpellDR { get { return getCheckBoxItem(drawMenu, "Draws.W"); } }
         static bool ESpellDR { get { return getCheckBoxItem(drawMenu, "Draws.E"); } }
-        static EloBuddy.AIHeroClient Target => EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
-        static List<EloBuddy.Obj_AI_Minion> Minions => EloBuddy.SDK.EntityManager.MinionsAndMonsters.EnemyMinions.Where(m => EloBuddy.SDK.Extensions.IsMinion(m) && EloBuddy.SDK.Extensions.IsValidTarget(m, Q.Range)).ToList();
-        static List<EloBuddy.Obj_AI_Minion> JungleMinions=> EloBuddy.SDK.EntityManager.MinionsAndMonsters.Monsters.Where(m => EloBuddy.SDK.Extensions.IsValidTarget(m, Q.Range)).ToList();
+
+        static EloBuddy.AIHeroClient Target
+        {
+            get
+            {
+                return EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
+            }
+        }
+        static List<EloBuddy.Obj_AI_Minion> Minions
+        {
+            get
+            {
+                return EloBuddy.SDK.EntityManager.MinionsAndMonsters.EnemyMinions.Where(m => EloBuddy.SDK.Extensions.IsMinion(m) && EloBuddy.SDK.Extensions.IsValidTarget(m, Q.Range)).ToList();
+            }
+        }
+        static List<EloBuddy.Obj_AI_Minion> JungleMinions
+        {
+            get
+            {
+                return EloBuddy.SDK.EntityManager.MinionsAndMonsters.Monsters.Where(m => EloBuddy.SDK.Extensions.IsValidTarget(m, Q.Range)).ToList();
+            }
+        }
        public static void RyzeLoading()
         {
             SetSpells();
