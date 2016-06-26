@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK.Menu;
+﻿using EloBuddy.SDK;
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Loader
         static bool WSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.W"); } }
         static bool ESpellCB { get { return getCheckBoxItem(comboMenu, "Combo.E"); } }
         static bool RSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.R"); } }
+        static bool BlockAA  { get { return getCheckBoxItem(comboMenu, "Combo.BlockAA"); } }
         static bool QSpellHR { get { return getCheckBoxItem(harassMenu, "Harass.Q"); } }
         static bool WSpellHR { get { return getCheckBoxItem(harassMenu, "Harass.W"); } }
         static bool ESpellHR { get { return getCheckBoxItem(harassMenu, "Harass.E"); } }
@@ -54,6 +56,7 @@ namespace Loader
             SetSpells();
             SetMenu();
             EloBuddy.Game.OnUpdate += Game_OnUpdate;
+            Orbwalker.OnPreAttack += Orbwalker_OnPreAttack;
             EloBuddy.Drawing.OnDraw += OnDraw;
         }
         static void SetSpells()
@@ -71,6 +74,7 @@ namespace Loader
             comboMenu.Add("Combo.W", new CheckBox("Use W"));
             comboMenu.Add("Combo.E", new CheckBox("Use E"));
             comboMenu.Add("Combo.R", new CheckBox("Use R"));
+            comboMenu.Add("Combo.BlockAA", new CheckBox("BlockAA"));
             harassMenu = Menu.AddSubMenu("Harass", "Harass");
             harassMenu.Add("Harass.Q", new CheckBox("Use Q"));
             harassMenu.Add("Harass.W", new CheckBox("Use W"));
@@ -124,6 +128,12 @@ namespace Loader
                 Clear();
             }
         }
+        private static void Orbwalker_OnPreAttack(EloBuddy.AttackableUnit target, EloBuddy.SDK.Orbwalker.PreAttackArgs args)
+        {
+            if (EloBuddy.SDK.Orbwalker.ActiveModesFlags.HasFlag(EloBuddy.SDK.Orbwalker.ActiveModes.Combo) && args.Target is EloBuddy.AIHeroClient && args.Target.Distance(EloBuddy.Player.Instance) > 400 && (W.IsReady() || E.IsReady() ||Q.IsReady()) && BlockAA)
+                args.Process = false;
+        }
+
         static void OnDraw(EventArgs args)
         {
             if (QSpellDr && Q.IsLearned)
