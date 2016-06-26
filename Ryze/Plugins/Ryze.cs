@@ -3,16 +3,16 @@ using EloBuddy.SDK.Menu.Values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Loader
 {
     class Ryze
     {
         static Menu Menu;
-        static Menu comboMenu, harassMenu, clearMenu;
-        static LeagueSharp.Common.Spell Q, W, E, R;
+        static Menu comboMenu, harassMenu, clearMenu,drawMenu;
+        static EloBuddy.SDK.Spell.Skillshot Q;
+        static EloBuddy.SDK.Spell.Targeted W;
+        static EloBuddy.SDK.Spell.Targeted E;
+        static EloBuddy.SDK.Spell.Active R;
         static bool QSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.Q"); } }
         static bool WSpellCB { get { return getCheckBoxItem(comboMenu, "Combo.W"); } }
         static bool ESpellCB { get { return getCheckBoxItem(comboMenu, "Combo.E"); } }
@@ -24,22 +24,25 @@ namespace Loader
         static bool WSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.W"); } }
         static bool ESpellFR { get { return getCheckBoxItem(clearMenu, "Clear.E"); } }
         static bool RSpellFR { get { return getCheckBoxItem(clearMenu, "Clear.R"); } }
+        static bool QSpellDr { get { return getCheckBoxItem(drawMenu, "Draws.Q"); } }
+        static bool WSpellDR { get { return getCheckBoxItem(drawMenu, "Draws.W"); } }
+        static bool ESpellDR { get { return getCheckBoxItem(drawMenu, "Draws.E"); } }
         static EloBuddy.AIHeroClient Target => EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
-        static List<EloBuddy.Obj_AI_Minion> Minions =>LeagueSharp.SDK.GameObjects.EnemyMinions.Where(m =>LeagueSharp.Common.MinionManager.IsMinion(m) &&LeagueSharp.Common.Utility.LSIsValidTarget(m, Q.Range)).ToList();
-        static List<EloBuddy.Obj_AI_Minion> JungleMinions=>LeagueSharp.SDK.GameObjects.Jungle.Where(m =>LeagueSharp.Common.Utility.LSIsValidTarget(m, Q.Range) && !LeagueSharp.SDK.GameObjects.JungleSmall.Contains(m)).ToList();
-    public static void RyzeLoading()
+        static List<EloBuddy.Obj_AI_Minion> Minions => EloBuddy.SDK.EntityManager.MinionsAndMonsters.EnemyMinions.Where(m => EloBuddy.SDK.Extensions.IsMinion(m) && EloBuddy.SDK.Extensions.IsValidTarget(m, Q.Range)).ToList();
+        static List<EloBuddy.Obj_AI_Minion> JungleMinions=> EloBuddy.SDK.EntityManager.MinionsAndMonsters.Monsters.Where(m => EloBuddy.SDK.Extensions.IsValidTarget(m, Q.Range)).ToList();
+       public static void RyzeLoading()
         {
             SetSpells();
             SetMenu();
             EloBuddy.Game.OnUpdate += Game_OnUpdate;
+            EloBuddy.Drawing.OnDraw += OnDraw;
         }
         static void SetSpells()
         {
-            Q = new LeagueSharp.Common.Spell(EloBuddy.SpellSlot.Q, 900);
-            W = new LeagueSharp.Common.Spell(EloBuddy.SpellSlot.W, 600);
-            E = new LeagueSharp.Common.Spell(EloBuddy.SpellSlot.E, 600);
-            R = new LeagueSharp.Common.Spell(EloBuddy.SpellSlot.R);
-            Q.SetSkillshot(0.25f, 50f, 1700f, true, LeagueSharp.Common.SkillshotType.SkillshotLine);
+            Q = new EloBuddy.SDK.Spell.Skillshot(EloBuddy.SpellSlot.Q, 900, EloBuddy.SDK.Enumerations.SkillShotType.Linear, 250, 1700, 50);
+            W = new EloBuddy.SDK.Spell.Targeted(EloBuddy.SpellSlot.W, 600);
+            E = new EloBuddy.SDK.Spell.Targeted(EloBuddy.SpellSlot.E, 600);
+            R = new EloBuddy.SDK.Spell.Active(EloBuddy.SpellSlot.R);
         }
         static void SetMenu()
         {
@@ -58,7 +61,11 @@ namespace Loader
             clearMenu.Add("Clear.W", new CheckBox("Use W"));
             clearMenu.Add("Clear.E", new CheckBox("Use E"));
             clearMenu.Add("Clear.R", new CheckBox("Use R"));
-            clearMenu.Add("Clear.Mana", new Slider("Min Mana %",20,0,100));
+            clearMenu.Add("Clear.Mana", new Slider("Min Mana %", 20, 0, 100));
+            drawMenu= Menu.AddSubMenu("Draws", "Draws");
+            drawMenu.Add("Draws.Q", new CheckBox("Draw Q"));
+            drawMenu.Add("Draws.W", new CheckBox("Draw W"));
+            drawMenu.Add("Draws.E", new CheckBox("Draw E",false));
         }
         static bool getCheckBoxItem(Menu m, string item)
         {
@@ -98,193 +105,211 @@ namespace Loader
                 Clear();
             }
         }
+        static void OnDraw(EventArgs args)
+        {
+            if (QSpellDr && Q.IsLearned)
+            {
+                EloBuddy.SDK.Rendering.Circle.Draw(SharpDX.Color.DeepSkyBlue, Q.Range, EloBuddy.Player.Instance.Position);
+            }
+            if (WSpellDR && W.IsLearned)
+            {
+                EloBuddy.SDK.Rendering.Circle.Draw(SharpDX.Color.DeepSkyBlue, W.Range, EloBuddy.Player.Instance.Position);
+            }
+            if (ESpellDR && E.IsLearned)
+            {
+                EloBuddy.SDK.Rendering.Circle.Draw(SharpDX.Color.DeepSkyBlue, E.Range, EloBuddy.Player.Instance.Position);
+            }
+        }
         static void Combo()
         {
             var target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
-            if (LeagueSharp.Common.Utility.LSCountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range) <= 2)
+            if (EloBuddy.SDK.Extensions.CountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range) <= 2)
             {
                 target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
             }
-            else if (2 < LeagueSharp.Common.Utility.LSCountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range))
+            else if (2 < EloBuddy.SDK.Extensions.CountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range))
             {
                 target = EloBuddy.SDK.TargetSelector.GetTarget(W.Range, EloBuddy.DamageType.Magical);
             }
-            if (!LeagueSharp.SDK.GameObjects.Player.HasBuff("RyzePassiveStack"))
+            if (!EloBuddy.Player.Instance.HasBuff("RyzePassiveStack"))
             {
-                if (!LeagueSharp.Common.Utility.IsReady(E))
+                if (!E.IsReady())
                 {
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
                     {
                         Q.Cast(target);
                     }
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
                     {
-                        W.CastOnUnit(target);
+                        W.Cast(target);
                     }
                 }
-                if (LeagueSharp.Common.Utility.IsReady(E))
+                if (E.IsReady())
                 {
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && ESpellCB)
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && ESpellCB)
                     {
-                        E.CastOnUnit(target);
+                        E.Cast(target);
                     }
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
                     {
-                        W.CastOnUnit(target);
+                        W.Cast(target);
                     }
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
                     {
                         Q.Cast(target);
                     }
                 }
             }
-            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 1)
+            if (EloBuddy.Player.Instance.HasBuff("RyzePassiveStack"))
             {
-                if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
+                if (EloBuddy.Player.Instance.GetBuff("RyzePassiveStack").Count == 1)
                 {
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && !LeagueSharp.Common.Utility.IsReady(Q) || !LeagueSharp.Common.Utility.IsReady(E))
+                    if (R.IsReady() && RSpellCB)
                     {
-                        R.Cast();
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && !Q.IsReady() || !E.IsReady())
+                        {
+                            R.Cast();
+                        }
                     }
-                }
 
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
-                {
-                    Q.Cast(target);
-                }
-                if(LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && LeagueSharp.Common.Utility.IsReady(E) && ESpellCB)
-                {
-                    E.CastOnUnit(target);
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
-                {
-                    W.CastOnUnit(target);
-                }
-            }
-            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 2)
-            {
-                if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
-                {
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) &&  !LeagueSharp.Common.Utility.IsReady(Q) && LeagueSharp.Common.Utility.IsReady(E))
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
                     {
-                        R.Cast();
+                        Q.Cast(target);
                     }
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && !LeagueSharp.Common.Utility.IsReady(E))
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && ESpellCB)
                     {
-                        R.Cast();
+                        E.Cast(target);
                     }
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && !LeagueSharp.Common.Utility.IsReady(Q) && !LeagueSharp.Common.Utility.IsReady(E))
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
                     {
-                        R.Cast();
+                        W.Cast(target);
                     }
                 }
+                if (EloBuddy.Player.GetBuff("RyzePassiveStack").Count == 2)
+                {
+                    if (R.IsReady() && RSpellCB)
+                    {
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !Q.IsReady() && E.IsReady())
+                        {
+                            R.Cast();
+                        }
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && !E.IsReady())
+                        {
+                            R.Cast();
+                        }
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !Q.IsReady() && !E.IsReady())
+                        {
+                            R.Cast();
+                        }
+                    }
 
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
-                {
-                    Q.Cast(target);
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
+                    {
+                        Q.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && ESpellCB)
+                    {
+                        E.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
+                    {
+                        W.Cast(target);
+                    }
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && LeagueSharp.Common.Utility.IsReady(E) && ESpellCB)
+                if (EloBuddy.Player.GetBuff("RyzePassiveStack").Count == 3)
                 {
-                    E.CastOnUnit(target);
+                    if (R.IsReady() && RSpellCB)
+                    {
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() || !W.IsReady())
+                        {
+                            R.Cast();
+                        }
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
+                    {
+                        Q.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && ESpellCB)
+                    {
+                        E.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
+                    {
+                        W.Cast(target);
+                    }
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
+                if (EloBuddy.Player.GetBuff("RyzePassiveStack").Count == 4)
                 {
-                    W.CastOnUnit(target);
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
+                    {
+                        W.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && !W.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
+                    {
+                        Q.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && !W.IsReady() && ESpellCB)
+                    {
+                        E.Cast(target);
+                    }
                 }
             }
-            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 3)
+            if (EloBuddy.Player.HasBuff("RyzePassiveCharged"))
             {
-                if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
+                if (R.IsReady() && RSpellCB)
                 {
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) || !LeagueSharp.Common.Utility.IsReady(W))
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !W.IsReady())
                     {
                         R.Cast();
                     }
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
+                {
+                    W.Cast(target);
+                }
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && !W.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
                 {
                     Q.Cast(target);
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && LeagueSharp.Common.Utility.IsReady(E) && ESpellCB)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && !W.IsReady() && ESpellCB)
                 {
-                    E.CastOnUnit(target);
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
-                {
-                    W.CastOnUnit(target);
-                }
-            }
-            if (LeagueSharp.SDK.GameObjects.Player.GetBuffCount("RyzePassiveStack") == 4)
-            {
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
-                {
-                    W.CastOnUnit(target);
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && !LeagueSharp.Common.Utility.IsReady(W) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
-                {
-                    Q.Cast(target);
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && LeagueSharp.Common.Utility.IsReady(E) && !LeagueSharp.Common.Utility.IsReady(W) && ESpellCB)
-                {
-                    E.CastOnUnit(target);
-                }
-            }
-            if (LeagueSharp.SDK.GameObjects.Player.HasBuff("RyzePassiveCharged"))
-            {
-                if (LeagueSharp.Common.Utility.IsReady(R) && RSpellCB)
-                {
-                    if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && !LeagueSharp.Common.Utility.IsReady(W))
-                    {
-                        R.Cast();
-                    }
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellCB)
-                {
-                    W.CastOnUnit(target);
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && !LeagueSharp.Common.Utility.IsReady(W) && QSpellCB && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
-                {
-                    Q.Cast(target);
-                }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && LeagueSharp.Common.Utility.IsReady(E) && !LeagueSharp.Common.Utility.IsReady(W) && ESpellCB)
-                {
-                    E.CastOnUnit(target);
+                    E.Cast(target);
                 }
             }
         }
         static void Mixed()
         {
             var target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
-            if (LeagueSharp.Common.Utility.LSCountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range) <= 2)
+            if (EloBuddy.SDK.Extensions.CountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range) <= 2)
             {
                 target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
             }
-            else if (2 < LeagueSharp.Common.Utility.LSCountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range))
+            else if (2 < EloBuddy.SDK.Extensions.CountEnemiesInRange(EloBuddy.ObjectManager.Player, Q.Range))
             {
                 target = EloBuddy.SDK.TargetSelector.GetTarget(W.Range, EloBuddy.DamageType.Magical);
             }
-            if (!LeagueSharp.Common.Utility.IsReady(E))
+            if (!E.IsReady())
             {
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR && Q.GetPrediction(target).CollisionObjects.Any(c => c.IsMinion) && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellHR && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
                 {
                     Q.Cast(target);
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellHR)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellHR)
                 {
-                    W.CastOnUnit(target);
+                    W.Cast(target);
                 }
             }
-            if (LeagueSharp.Common.Utility.IsReady(E))
+            if (E.IsReady())
             {
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, E.Range) && ESpellHR)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && ESpellHR)
                 {
-                    E.CastOnUnit(target);
+                    E.Cast(target);
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, W.Range) && LeagueSharp.Common.Utility.IsReady(W) && WSpellHR)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellHR)
                 {
-                    W.CastOnUnit(target);
+                    W.Cast(target);
                 }
-                if (LeagueSharp.Common.Utility.LSIsValidTarget(target, Q.Range) && LeagueSharp.Common.Utility.IsReady(Q) && QSpellHR && Q.GetPrediction(target).CollisionObjects.Any(c => c.IsMinion) && LeagueSharp.Common.HitChance.High <= Q.GetPrediction(target).Hitchance)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellHR && Q.GetPrediction(target).CollisionObjects.Any(c => c.IsMinion) && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
                 {
                     Q.Cast(target);
                 }
@@ -292,7 +317,7 @@ namespace Loader
         }
         static void Clear()
         {
-            if (LeagueSharp.Common.Utility.IsReady(R) && LeagueSharp.Common.Utility.IsReady(E) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && RSpellFR)
+            if (R.IsReady() && E.IsReady() && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && RSpellFR)
             {
                 if (Minions.Any())
                 {
@@ -306,7 +331,7 @@ namespace Loader
                     R.Cast();
                 }
             }
-            if (LeagueSharp.Common.Utility.IsReady(Q) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && QSpellFR)
+            if (Q.IsReady() && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && QSpellFR)
             {
                 if (Minions.Any())
                 {
@@ -317,26 +342,26 @@ namespace Loader
                     Q.Cast(JungleMinions[0].ServerPosition);
                 }
             }
-            if (LeagueSharp.Common.Utility.IsReady(W) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && WSpellFR)
+            if (W.IsReady() && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && WSpellFR)
             {
                 if (Minions.Any())
                 {
-                    W.CastOnUnit(Minions[0]);
+                    W.Cast(Minions[0]);
                 }
                 if (JungleMinions.Any())
                 {
-                    W.CastOnUnit(JungleMinions[0]);
+                    W.Cast(JungleMinions[0]);
                 }
             }
-            if (LeagueSharp.Common.Utility.IsReady(E) && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && ESpellFR)
+            if (E.IsReady() && getSliderItem(clearMenu, "Clear.Mana") <= EloBuddy.Player.Instance.ManaPercent && ESpellFR)
             {
                 if (Minions.Any())
                 {
-                    E.CastOnUnit(Minions[0]);
+                    E.Cast(Minions[0]);
                 }
                 else if (JungleMinions.Any())
                 {
-                    E.CastOnUnit(JungleMinions[0]);
+                    E.Cast(JungleMinions[0]);
                 }
             }
         }

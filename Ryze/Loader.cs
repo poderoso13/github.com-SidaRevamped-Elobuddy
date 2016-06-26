@@ -10,7 +10,6 @@ namespace Loader
         }
         static void Initialize(EventArgs args)
         {
-            LeagueSharp.SDK.Bootstrap.Init();
             if (EloBuddy.Player.Instance.ChampionName == "Ryze")
             {
                 Ryze.RyzeLoading();
