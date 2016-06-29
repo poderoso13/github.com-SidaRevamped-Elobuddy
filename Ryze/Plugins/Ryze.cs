@@ -171,7 +171,7 @@ namespace Loader
             {
                 target = EloBuddy.SDK.TargetSelector.GetTarget(W.Range, EloBuddy.DamageType.Magical);
             }
-            if (!EloBuddy.Player.Instance.HasBuff("RyzePassiveStack"))
+            if (!EloBuddy.Player.Instance.HasBuff("RyzePassiveStack") && !EloBuddy.Player.HasBuff("RyzePassiveCharged"))
             {
                 if (!E.IsReady())
                 {
