@@ -62,6 +62,10 @@ namespace Loader
         static void SetSpells()
         {
             Q = new EloBuddy.SDK.Spell.Skillshot(EloBuddy.SpellSlot.Q, 900, EloBuddy.SDK.Enumerations.SkillShotType.Linear, 250, 1700, 50);
+            if (HasRyzeRBuff)
+            {
+                Q.AllowedCollisionCount = int.MaxValue;
+            }
             W = new EloBuddy.SDK.Spell.Targeted(EloBuddy.SpellSlot.W, 600);
             E = new EloBuddy.SDK.Spell.Targeted(EloBuddy.SpellSlot.E, 600);
             R = new EloBuddy.SDK.Spell.Active(EloBuddy.SpellSlot.R);
@@ -149,6 +153,13 @@ namespace Loader
                 EloBuddy.SDK.Rendering.Circle.Draw(SharpDX.Color.DeepSkyBlue, E.Range, EloBuddy.Player.Instance.Position);
             }
         }
+        static bool HasRyzeRBuff
+        {
+            get
+            {
+                return EloBuddy.Player.Instance.GetBuff("RyzeR") != null;
+            }
+        }
         static void Combo()
         {
             var target = EloBuddy.SDK.TargetSelector.GetTarget(Q.Range, EloBuddy.DamageType.Magical);
@@ -195,19 +206,18 @@ namespace Loader
                 {
                     if (R.IsReady() && RSpellCB)
                     {
-                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && !Q.IsReady() || !E.IsReady())
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !(!Q.IsReady() && E.IsReady()) || !(Q.IsReady() && !E.IsReady()))
                         {
                             R.Cast();
                         }
                     }
-
-                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
-                    {
-                        Q.Cast(target);
-                    }
                     if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && ESpellCB)
                     {
                         E.Cast(target);
+                    }
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
+                    {
+                        Q.Cast(target);
                     }
                     if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
                     {
@@ -226,7 +236,7 @@ namespace Loader
                         {
                             R.Cast();
                         }
-                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !Q.IsReady() && !E.IsReady())
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !Q.IsReady() && !E.IsReady() && W.IsReady())
                         {
                             R.Cast();
                         }
@@ -249,7 +259,7 @@ namespace Loader
                 {
                     if (R.IsReady() && RSpellCB)
                     {
-                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() || !W.IsReady())
+                        if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady())
                         {
                             R.Cast();
                         }
@@ -262,7 +272,7 @@ namespace Loader
                     {
                         E.Cast(target);
                     }
-                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
+                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB && !Q.IsReady() && !E.IsReady() && !R.IsReady())
                     {
                         W.Cast(target);
                     }
@@ -285,22 +295,15 @@ namespace Loader
             }
             if (EloBuddy.Player.HasBuff("RyzePassiveCharged"))
             {
-                if (R.IsReady() && RSpellCB)
-                {
-                    if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && !W.IsReady())
-                    {
-                        R.Cast();
-                    }
-                }
                 if (EloBuddy.SDK.Extensions.IsValidTarget(target, W.Range) && W.IsReady() && WSpellCB)
                 {
                     W.Cast(target);
                 }
-                if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && !W.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, Q.Range) && Q.IsReady() && QSpellCB && EloBuddy.SDK.Enumerations.HitChance.High <= Q.GetPrediction(target).HitChance && !W.IsReady())
                 {
                     Q.Cast(target);
                 }
-                if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && !W.IsReady() && ESpellCB)
+                if (EloBuddy.SDK.Extensions.IsValidTarget(target, E.Range) && E.IsReady() && ESpellCB && !W.IsReady())
                 {
                     E.Cast(target);
                 }
