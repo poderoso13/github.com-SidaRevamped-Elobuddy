@@ -29,7 +29,7 @@ namespace Zilean
         }
         static void Game_OnLoad (EventArgs args)
         {
-            Q = new Spell.Skillshot(SpellSlot.Q, 900, SkillShotType.Circular, 0.9, 1850, 150);
+            Q = new Spell.Skillshot(SpellSlot.Q, 900, SkillShotType.Circular, 90, 1850, 150);
             Q.AllowedCollisionCount = int.MaxValue;
             W = new Spell.Active(SpellSlot.W);
             E = new Spell.Targeted(SpellSlot.E, 550);
