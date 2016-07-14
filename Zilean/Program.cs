@@ -29,7 +29,7 @@ namespace Zilean
         }
         static void Game_OnLoad (EventArgs args)
         {
-            Q = new Spell.Skillshot(SpellSlot.Q, 900, SkillShotType.Circular, 280, 1850, 150);
+            Q = new Spell.Skillshot(SpellSlot.Q, 900, SkillShotType.Circular, 285, 1850, 150);
             Q.AllowedCollisionCount = int.MaxValue;
             W = new Spell.Active(SpellSlot.W);
             E = new Spell.Targeted(SpellSlot.E, 550);
@@ -154,7 +154,7 @@ namespace Zilean
                 return;
             }
             var predQ = Q.GetPrediction(target);
-            if (Q.IsReady() && predQ.HitChance >= HitChance.Medium && CanMove(target) && harassMenu["Harass.Q"].Cast<CheckBox>().CurrentValue && Player.Instance.Mana > QMANA + RMANA)
+            if (Q.IsReady() && predQ.HitChance >= HitChance.High && CanMove(target) && harassMenu["Harass.Q"].Cast<CheckBox>().CurrentValue && Player.Instance.Mana > QMANA + RMANA)
             {
                 Q.Cast(predQ.CastPosition);
             }
