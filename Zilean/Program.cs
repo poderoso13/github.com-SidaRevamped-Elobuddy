@@ -112,7 +112,7 @@ namespace Zilean
                 return;
             }
             var predQ = Q.GetPrediction(target);
-            if (Q.IsReady() && predQ.HitChance >= HitChance.Low && CanMove(target) && comboMenu["Combo.Q"].Cast<CheckBox>().CurrentValue && Player.Instance.Mana > QMANA + RMANA)
+            if (Q.IsReady() && predQ.HitChance >= HitChance.Medium && CanMove(target) && comboMenu["Combo.Q"].Cast<CheckBox>().CurrentValue && Player.Instance.Mana > QMANA + RMANA)
             {
                 Q.Cast(predQ.CastPosition);
             }
